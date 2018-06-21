@@ -1,26 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct{
-    int* next; //aponta para o proximo card na mao de um jogador
-    int used; //if used == 1, ja está é uso e não pode ser comprado.
-    char cor;
-    char nbr;
-}t_carta;
+#include "Rummikub.h"
 
-typedef struct{
-    int n;//numero do jogador
-    int cards;
-    t_carta* carta;
-}t_player;
+#define CARTA_NBR 104
+#define CORINGA_NBR 2
 
 int main()
 {
-    t_carta carta;
     t_player* player;
     int player_nbr;
     int flag = 0;
-    int c;
+    t_carta* carta;
+    carta = (t_carta*)malloc((CARTA_NBR+CORINGA_NBR)*sizeof(t_carta));
+    baralho(carta);
     printf("                          -----------------------------\n");
     printf("                          |   Bem Vindo ao Rummikub!  |\n");
     printf("                          -----------------------------\n");
@@ -42,4 +35,5 @@ int main()
 
 
     free(player);
+    free(carta);
 }
