@@ -1,7 +1,7 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "Rummikub.h"
-#include <cstdlib>
 #define CARTA_NBR 104
 #define CORINGA_NBR 2
 #define START_CARDS 14
@@ -68,9 +68,9 @@ void liberar_jogadores(int player_nbr, t_player* player)
 }
 
 void clear(){
-	#ifdef WINDOWS
-    std::system("CLS");
+	#ifdef _WIN32
+    system("cls");
 	#else
-    std::system ("clear");
+    system("clear");
 	#endif
 }
