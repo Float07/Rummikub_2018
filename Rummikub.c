@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 #include "Rummikub.h"
 #define CARTA_NBR 104
@@ -67,10 +68,18 @@ void liberar_jogadores(int player_nbr, t_player* player)
 	free(player);
 }
 
-void clear(){
+void clear()
+{
 	#ifdef _WIN32
     system("cls");
 	#else
     system("clear");
 	#endif
+}
+
+void distribuir_baralho()
+{
+	clock_t seed = clock();
+	srand(seed);
+	int steps = rand;
 }

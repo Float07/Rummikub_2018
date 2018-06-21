@@ -20,7 +20,7 @@ int main()
 
     int player_nbr;
     int flag = 0;
-    
+
     baralho(carta);
     printf("                          -----------------------------\n");
     printf("                          |   Bem Vindo ao Rummikub!  |\n");
@@ -35,7 +35,8 @@ int main()
         }
     }
     flag = 0;
-    clear();
+    distribuir_baralho();
+   	clear();
     player = alocar_jogadores(player_nbr);
 
     liberar_jogadores(player_nbr, player);
