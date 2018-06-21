@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 #include "Rummikub.h"
 #define CARTA_NBR 104
@@ -18,7 +19,7 @@ char binario_hexa(int n)
 	return caracter;
 }
 
-void baralho(t_carta* carta)
+void criar_baralho(t_carta* carta)
 {
 	char cores[4] = CORES;
 	int c, k = -1;
@@ -51,7 +52,14 @@ t_player* alocar_jogadores(int player_nbr)
 
 	for (c = 0; c < player_nbr; c++)
 	{
-		player->carta = (t_carta*)malloc((CARTA_NBR+CORINGA_NBR)*sizeof(t_carta));
+		player[c].carta = (t_carta*)malloc((CARTA_NBR+CORINGA_NBR)*sizeof(t_carta));
+		player[c].carta[0].cor = '!';
+		player[c].carta[0].nbr = '1';
+		if (player[c].carta == NULL)
+		{
+			printf("Memoria insuficiente!! encerrando!\n");
+			exit(0);
+		}
 	}
 
 	return player;
@@ -67,10 +75,33 @@ void liberar_jogadores(int player_nbr, t_player* player)
 	free(player);
 }
 
-void clear(){
+void clear()
+{
 	#ifdef _WIN32
     system("cls");
 	#else
     system("clear");
 	#endif
+}
+
+void distribuir_baralho(int n, t_player* player, t_carta* baralho, int* cartas_baralho)
+{
+	clock_t seed = clock();
+	srand(seed);
+	int steps;
+
+	for (int i = 0; i < n; ++i)
+	{
+		player[i].cards = 0;
+		for (int c = 0; c < START_CARDS; ++c)
+		{
+			steps = rand() % *cartas_baralho;
+			player[i].carta[c] = baralho[steps];			(*cartas_baralho)--;
+			player[i].cards++;
+			for (int k = steps; k < *cartas_baralho; ++k)//preenche os espaços vazios após a carta ter sido comprada
+			{
+				baralho[k] = baralho[k+1];
+			}
+		}
+	}
 }
