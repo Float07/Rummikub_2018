@@ -7,11 +7,12 @@ typedef struct{
 }t_carta;
 
 typedef struct{
-    int n;//numero do jogador
-    int cards;
-    t_carta carta;
+    int cards;//quantidade de cartas do jogador
+    t_carta* carta;
 }t_player;
 
 void baralho(t_carta* carta); //cria o baralho
+t_player* alocar_jogadores(int player_nbr); //aloca espaço para os jogadores e para seus baralhos
+void liberar_jogadores(int player_nbr, t_player* player);//Libera o espaço usado pelos jogadores e seus baralhos
 
 #endif // RUMMIKUB_H_INCLUDED

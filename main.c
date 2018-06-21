@@ -9,10 +9,17 @@
 int main()
 {
     t_player* player;
-    int player_nbr;
-    int flag = 0;
     t_carta* carta;
     carta = (t_carta*)malloc((CARTA_NBR+CORINGA_NBR)*sizeof(t_carta));
+    if (carta == NULL)
+    {
+    	printf("Memoria insuficiente, encerrando!!!(Sindo muito)\n");
+    	exit(0);
+    }
+
+    int player_nbr;
+    int flag = 0;
+    
     baralho(carta);
     printf("                          -----------------------------\n");
     printf("                          |   Bem Vindo ao Rummikub!  |\n");
@@ -27,13 +34,9 @@ int main()
         }
     }
     flag = 0;
-    player = (t_player*)malloc(player_nbr*sizeof(t_player));
-    if (player == NULL){
-        printf("Memoria insuficiente! encerrando!!!\n");
-        exit(0);
-    }
 
+    player = alocar_jogadores(player_nbr);
 
-    free(player);
+    liberar_jogadores(player_nbr, player);
     free(carta);
 }

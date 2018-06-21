@@ -1,10 +1,10 @@
 #include <stdlib.h>
-#include <stdio.h>
 
 #include "Rummikub.h"
 
 #define CARTA_NBR 104
 #define CORINGA_NBR 2
+#define START_CARDS 14
 #define CORES {'!','@','#','$'}
 
 char binario_hexa(int n)
@@ -40,9 +40,29 @@ void baralho(t_carta* carta)
 		carta[CARTA_NBR + c].cor = '*';
 		carta[CARTA_NBR + c].nbr = '*';
 	}
-	printf("Testando as cartas!!!\n");
-	for (c = 0; c < CARTA_NBR + CORINGA_NBR; c++)
+}
+
+t_player* alocar_jogadores(int player_nbr)
+{
+	int c;
+	t_player* player;
+
+	player = (t_player*)malloc(player_nbr*sizeof(t_player));
+
+	for (c = 0; c < player_nbr; c++)
 	{
-		printf("carta %d: %c%c\n",c+1, carta[c].nbr, carta[c].cor);
+		player->carta = (t_carta*)malloc((CARTA_NBR+CORINGA_NBR)*sizeof(t_carta));
 	}
+
+	return player;
+}
+
+void liberar_jogadores(int player_nbr, t_player* player)
+{
+	int c;
+	for (c = 0; c < player_nbr; c++)
+	{
+		free(player[c].carta);
+	}
+	free(player);
 }
