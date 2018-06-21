@@ -14,5 +14,6 @@ typedef struct{
 void baralho(t_carta* carta); //cria o baralho
 t_player* alocar_jogadores(int player_nbr); //aloca espaço para os jogadores e para seus baralhos
 void liberar_jogadores(int player_nbr, t_player* player);//Libera o espaço usado pelos jogadores e seus baralhos
+void clear();
 
 #endif // RUMMIKUB_H_INCLUDED

@@ -8,6 +8,7 @@
 
 int main()
 {
+    clear();
     t_player* player;
     t_carta* carta;
     carta = (t_carta*)malloc((CARTA_NBR+CORINGA_NBR)*sizeof(t_carta));
@@ -34,7 +35,7 @@ int main()
         }
     }
     flag = 0;
-
+    clear();
     player = alocar_jogadores(player_nbr);
 
     liberar_jogadores(player_nbr, player);
