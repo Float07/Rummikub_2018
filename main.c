@@ -37,6 +37,13 @@ int main()
     flag = 0;
     clear();
     player = alocar_jogadores(player_nbr);
+    
+    
+
+
+
+
+
 
     liberar_jogadores(player_nbr, player);
     free(carta);
