@@ -94,12 +94,12 @@ void distribuir_baralho(int n, t_player* player, t_carta* baralho, int* cartas_b
 		{
 			steps = rand() % *cartas_baralho;
 			player[i].carta[c] = baralho[steps];
-			(*cartas_baralho)--;
 			player[i].cards++;
 			for (int k = steps; k < *cartas_baralho; ++k)//preenche os espaços vazios após a carta ter sido comprada
 			{
 				baralho[k] = baralho[k+1];
 			}
+			(*cartas_baralho)--;
 		}
 	}
 }

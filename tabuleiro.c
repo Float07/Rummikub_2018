@@ -21,10 +21,12 @@ void imprime_tabuleiro(t_tabuleiro_ptr conjunto){
 		printf("%c%c ", conjunto->carta[i].nbr, conjunto->carta[i].cor );
 	}
 	printf("\n");
-	if(conjunto->next != NULL){
+	if(conjunto->next != NULL)
+	{
 			imprime_tabuleiro(conjunto->next);
 	}
-	else{
+	else
+	{
 		return;
 	}
 	
