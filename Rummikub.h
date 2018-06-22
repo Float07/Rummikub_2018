@@ -11,6 +11,14 @@ typedef struct{
     t_carta* carta;
 }t_player;
 
+struct tabuleiro{
+	int n;
+	t_carta carta[13];
+	struct tabuleiro *next;
+};
+typedef struct tabuleiro t_tabuleiro; 
+typedef t_tabuleiro *t_tabuleiro_ptr;
+
 void criar_baralho(t_carta* carta); //cria o baralho
 t_player* alocar_jogadores(int player_nbr); //aloca espaço para os jogadores e para seus baralhos
 void liberar_jogadores(int player_nbr, t_player* player);//Libera o espaço usado pelos jogadores e seus baralhos
