@@ -29,3 +29,4 @@ void imprime_tabuleiro(t_tabuleiro_ptr conjunto){
 	}
 	
 }
+
