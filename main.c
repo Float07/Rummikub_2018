@@ -49,7 +49,6 @@ int main()
 
     player = alocar_jogadores(player_nbr);
     distribuir_baralho(player_nbr, player, baralho, &cartas_baralho);
-
     while(!victory)
     {
     	printf("vez do jogador %d!\n", numpl + 1);

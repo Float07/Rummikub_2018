@@ -35,5 +35,22 @@ void imprime_tabuleiro(t_tabuleiro_ptr conjunto, int n){
 
 void imprime_mao(t_player* player, int numpl)
 {
-	
+	for (int i = 0; i < player[numpl].cards; ++i)
+	{
+		if (i < 10)
+		{
+			printf("%d    ", i);
+		}else if (i < 100)
+		{
+			printf("%d   ", i);
+		}else
+		{
+			printf("%d  ", i);
+		}
+	}
+	printf("\n");
+	for (int i = 0; i < player[numpl].cards; ++i)
+	{
+		printf("%c%c   ", player[numpl].carta[i].nbr, player[numpl].carta[i].cor);
+	}
 }
