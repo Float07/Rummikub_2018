@@ -111,11 +111,11 @@ void comprar_carta(t_player* player, t_carta* baralho, int* cartas_baralho, int 
 		printf("Nao existem cartas no baralho!\n");
 		return;
 	}
-	int steps = rand() % cartas_baralho;
+	int steps = rand() % *cartas_baralho;
 	player[numpl].carta[player[numpl].cards] = baralho[steps];
 	for (int i = steps; i < *cartas_baralho; ++i)
 	{
-		baralho[c] = baralho[c + 1];
+		baralho[i] = baralho[i + 1];
 	}
 	(*cartas_baralho)--;
 }
