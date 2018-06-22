@@ -21,10 +21,15 @@ int main()
     	printf("Memoria insuficiente, encerrando!!!(Sindo muito)\n");
     	exit(0);
     }
+    t_tabuleiro_ptr conjunto = (t_tabuleiro*)malloc(sizeof(t_tabuleiro));
+    conjunto->n = 0;
+    conjunto->next = NULL;
 
     int player_nbr;
     int flag = 0;
     int cartas_baralho = (CARTA_NBR + CORINGA_NBR);
+    int victory = 0; //verifica se alguem venceu
+    int numpl = 0; //indica o numero do player que está jogando
 
     criar_baralho(baralho);
     printf("                          -----------------------------\n");
@@ -44,6 +49,15 @@ int main()
 
     player = alocar_jogadores(player_nbr);
     distribuir_baralho(player_nbr, player, baralho, &cartas_baralho);
+
+    while(!victory)
+    {
+    	printf("vez do jogador %d!\n", numpl + 1);
+
+    	imprime_tabuleiro(conjunto, 1);
+
+    	numpl = (numpl + 1)%player_nbr;
+    }
     
     liberar_jogadores(player_nbr, player);
     free(baralho);

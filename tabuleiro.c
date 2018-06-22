@@ -3,12 +3,8 @@
 #include <stdlib.h>
 #include "Rummikub.h"
 
-/*t_tabuleiro_ptr criar_conjunto(t_tabuleiro_ptr novo) {
-	
->>>>>>> master
-
-
-t_tabuleiro_ptr criar_conjunto(t_tabuleiro_ptr novo, int numpl) {
+/*
+void criar_conjunto(t_tabuleiro_ptr novo, int numpl) {
 	int aux;
 	int num;
 	printf("Quais cartas vc deseja adicionar?(no minimo 3)\n")
@@ -21,19 +17,20 @@ t_tabuleiro_ptr criar_conjunto(t_tabuleiro_ptr novo, int numpl) {
 }
 
 */
-void imprime_tabuleiro(t_tabuleiro_ptr conjunto){
+void imprime_tabuleiro(t_tabuleiro_ptr conjunto, int n){
+	printf("%d. ", n);
 	for (int i = 0; i < conjunto->n; ++i){
 		printf("%c%c ", conjunto->carta[i].nbr, conjunto->carta[i].cor );
 	}
 	printf("\n");
 	if(conjunto->next != NULL)
 	{
-			imprime_tabuleiro(conjunto->next);
+			imprime_tabuleiro(conjunto->next, n+1);
 	}
 	else
 	{
 		return;
 	}
-	
+
 }
 
