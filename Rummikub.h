@@ -26,6 +26,6 @@ void clear(); //limpa a tela (windows e linux)
 void distribuir_baralho(int player_nbr, t_player* player, t_carta* baralho, int* cartas_baralho); // distribui aleatoriamente o baralho antes do jogo começar
 void comprar_carta(t_player* player, t_carta* baralho, int* cartas_baralho, int numpl); //faz com que o jogador "numpl" receba uma carta aleatória do monte
 void imprime_tabuleiro(t_tabuleiro_ptr conjunto, int n); //função que imprime tabuleiro
-void imprime_mao(t_player, numpl); //imprime a mao do jogador na tela
+void imprime_mao(t_player* player, int numpl); //imprime a mao do jogador na tela
 
 #endif // RUMMIKUB_H_INCLUDED

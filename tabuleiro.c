@@ -31,6 +31,9 @@ void imprime_tabuleiro(t_tabuleiro_ptr conjunto, int n){
 	{
 		return;
 	}
-
 }
 
+void imprime_mao(t_player* player, int numpl)
+{
+	
+}
