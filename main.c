@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "Rummikub.h"
 
@@ -7,8 +8,11 @@
 #define CORINGA_NBR 2
 
 int main()
-{
+{	
+	clock_t seed = clock();
+	srand(seed);//define uma seed para o rand
     clear();
+
     t_player* player;
     t_carta* baralho;
     baralho = (t_carta*)malloc((CARTA_NBR+CORINGA_NBR)*sizeof(t_carta));

@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <time.h>
 
 #include "Rummikub.h"
 #define CARTA_NBR 104
@@ -86,8 +85,6 @@ void clear()
 
 void distribuir_baralho(int n, t_player* player, t_carta* baralho, int* cartas_baralho)
 {
-	clock_t seed = clock();
-	srand(seed);
 	int steps;
 
 	for (int i = 0; i < n; ++i)
@@ -96,7 +93,8 @@ void distribuir_baralho(int n, t_player* player, t_carta* baralho, int* cartas_b
 		for (int c = 0; c < START_CARDS; ++c)
 		{
 			steps = rand() % *cartas_baralho;
-			player[i].carta[c] = baralho[steps];			(*cartas_baralho)--;
+			player[i].carta[c] = baralho[steps];
+			(*cartas_baralho)--;
 			player[i].cards++;
 			for (int k = steps; k < *cartas_baralho; ++k)//preenche os espaços vazios após a carta ter sido comprada
 			{
@@ -104,4 +102,20 @@ void distribuir_baralho(int n, t_player* player, t_carta* baralho, int* cartas_b
 			}
 		}
 	}
+}
+
+void comprar_carta(t_player* player, t_carta* baralho, int* cartas_baralho, int numpl)
+{
+	if (cartas_baralho == 0)
+	{
+		printf("Nao existem cartas no baralho!\n");
+		return;
+	}
+	int steps = rand() % cartas_baralho;
+	player[numpl].carta[player[numpl].cards] = baralho[steps];
+	for (int i = steps; i < *cartas_baralho; ++i)
+	{
+		baralho[c] = baralho[c + 1];
+	}
+	(*cartas_baralho)--;
 }
