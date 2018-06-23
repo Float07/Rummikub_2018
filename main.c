@@ -21,9 +21,21 @@ int main()
     	printf("Memoria insuficiente, encerrando!!!(Sindo muito)\n");
     	exit(0);
     }
+
+    /*cria e zera o conjunto de cartas*/
     t_tabuleiro_ptr conjunto = (t_tabuleiro*)malloc(sizeof(t_tabuleiro));
+    if (conjunto == NULL)
+    {
+    	printf("Memoria insuficiente, encerrando!\n");
+    	exit(0);
+    }
     conjunto->n = 0;
     conjunto->next = NULL;
+    for (int i = 0; i < 13; ++i)
+    {
+    	conjunto->carta[i].nbr = '0';
+    }
+    /*cria e zera o conjunto de cartas*/
 
     int player_nbr;
     int flag = 0;
@@ -56,20 +68,16 @@ int main()
     	printf("vez do jogador %d!\n", numpl + 1);
 
     	while(!finalizar){
-    	printf("                 Mesa:\n");
-    	imprime_tabuleiro(conjunto, 1);
-    	printf("\n\n                               Sua mao:\n");
-    	imprime_mao(player, numpl);
-    	printf("\n\n                 O que deseja fazer?\n                 1-Adicionar uma carta\n                 2-Pegar uma carta\n\n                 0-Finalizar jogada");
-    	scanf("%d", &opt);
-    	if (opt == 1)
-    	{
-    		char letra;
-    		int linha;
-    		clear();
-    		imprime_tabuleiro(conjunto, 1);
-    		imprime_mao(player, numpl);
-    	}
+	    	printf("                 Mesa:\n");
+	    	imprime_tabuleiro(conjunto, 1);
+	    	printf("\n\n                               Sua mao:\n");
+	    	imprime_mao(player, numpl);
+	    	printf("\n\n                 O que deseja fazer?\n                 1-Adicionar uma carta\n                 2-Pegar uma carta\n\n                 0-Finalizar jogada");
+	    	scanf("%d", &opt);
+	    	if (opt == 1)
+	    	{
+	    		adicionar_carta(conjunto, player, numpl);
+	    	}
 		}
 
     	numpl = (numpl + 1)%player_nbr;

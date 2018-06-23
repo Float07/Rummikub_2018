@@ -63,3 +63,37 @@ void imprime_mao(t_player* player, int numpl)
 		printf("%c%c   ", player[numpl].carta[i].nbr, player[numpl].carta[i].cor);
 	}
 }
+
+void adicionar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
+{
+	t_tabuleiro_ptr conjunto_temp = conjunto;
+	int linha;
+	char coluna;
+	int n_coluna;
+	int card; //A carta que o player escolhe adicionar
+	printf("Escolha a posicao desejada\n");
+	printf("Linha: ");
+	scanf("%d", &linha);
+	printf("Coluna: ");
+	scanf(" %c", &coluna);
+
+	if (coluna >= 'A' && coluna <= 'M')
+	{
+		n_coluna = coluna - 'A';
+	}else if(coluna >= 'a' && coluna <= 'm')
+	{
+		n_coluna = coluna - 'a';
+	}else{
+		printf("Coluna invalida!!!!");
+		exit(0);
+	}
+	for (int i = 0; i < linha - 1; ++i)
+	{
+		conjunto_temp = conjunto_temp->next;
+	}
+
+	printf("Qual carta deseja posicionar?\n");
+	scanf("%d", &card);
+
+	conjunto_temp->carta[n_coluna] = player[numpl].carta[card];
+}
