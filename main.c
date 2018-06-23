@@ -30,6 +30,8 @@ int main()
     int cartas_baralho = (CARTA_NBR + CORINGA_NBR);
     int victory = 0; //verifica se alguem venceu
     int numpl = 0; //indica o numero do player que está jogando
+    int finalizar = 0; //verifica se o player deseja finalizar a jogada
+    int opt; //registra a escolha do player durante sua jogada
 
     criar_baralho(baralho);
     printf("                          -----------------------------\n");
@@ -53,7 +55,22 @@ int main()
     {
     	printf("vez do jogador %d!\n", numpl + 1);
 
+    	while(!finalizar){
+    	printf("                 Mesa:\n");
     	imprime_tabuleiro(conjunto, 1);
+    	printf("\n\n                               Sua mao:\n");
+    	imprime_mao(player, numpl);
+    	printf("\n\n                 O que deseja fazer?\n                 1-Adicionar uma carta\n                 2-Pegar uma carta\n\n                 0-Finalizar jogada");
+    	scanf("%d", &opt);
+    	if (opt == 1)
+    	{
+    		char letra;
+    		int linha;
+    		clear();
+    		imprime_tabuleiro(conjunto, 1);
+    		imprime_mao(player, numpl);
+    	}
+		}
 
     	numpl = (numpl + 1)%player_nbr;
     }

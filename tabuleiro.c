@@ -17,7 +17,16 @@ void criar_conjunto(t_tabuleiro_ptr novo, int numpl) {
 }
 
 */
-void imprime_tabuleiro(t_tabuleiro_ptr conjunto, int n){
+void imprime_tabuleiro(t_tabuleiro_ptr conjunto, int n)
+{
+	if (n == 1)
+	{	
+   		for (int i = 0; i < 13; ++i)
+    	{
+   			printf("%c    ", 'A'+i);
+    	}
+    	printf("\n");
+	}
 	printf("%d. ", n);
 	for (int i = 0; i < conjunto->n; ++i){
 		printf("%c%c ", conjunto->carta[i].nbr, conjunto->carta[i].cor );
