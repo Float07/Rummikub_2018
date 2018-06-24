@@ -19,10 +19,10 @@ void imprime_tabuleiro(t_tabuleiro_ptr conjunto, int n)
 	for (int i = 0; i < 13; ++i){
 		if (conjunto->carta[i].nbr == '0')
 		{
-			printf("    ");
+			printf("     ");
 		}else
 		{
-			printf("%c%c  ", conjunto->carta[i].nbr, conjunto->carta[i].cor);
+			printf("%c%c   ", conjunto->carta[i].nbr, conjunto->carta[i].cor);
 		}
 	}
 	printf("\n");
@@ -58,7 +58,7 @@ void imprime_mao(t_player* player, int numpl)
 	}
 }
 
-t_tabuleiro_ptr adicionar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
+void adicionar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 {
 	t_tabuleiro_ptr conjunto_temp = conjunto;
 	int linha;
@@ -90,17 +90,21 @@ t_tabuleiro_ptr adicionar_carta(t_tabuleiro_ptr conjunto, t_player* player, int 
 	scanf("%d", &card);
 
 	conjunto_temp->carta[n_coluna] = player[numpl].carta[card];
+	for (int i = card; i < player[numpl].cards; ++i)
+	{
+		player[numpl].carta[i] = player[numpl].carta[i + 1];
+	}
+	player[numpl].cards--;
 
 	if (conjunto_temp->next == NULL)
 	{
-		conjunto = (t_tabuleiro*)malloc(sizeof(t_tabuleiro));
-		conjunto->next = conjunto_temp;
-		printf("ojfnaoujfnsdojgnvsojvndfjobvnsjonbfjobnsdjobnfdjobndajnbatata\n");
-		conjunto->n = 0;
+		conjunto_temp->next = (t_tabuleiro_ptr)malloc(sizeof(t_tabuleiro));
+		conjunto_temp = conjunto_temp->next;
+		conjunto_temp->n = 0;
+		conjunto_temp->next = NULL;
 		for (int i = 0; i < 13; ++i)
 		{
-			conjunto->carta[i].nbr = '0';
+			conjunto_temp->carta[i].nbr = '0';
 		}
 	}
-	return conjunto;
 }

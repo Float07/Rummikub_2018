@@ -72,12 +72,13 @@ int main()
 	    	imprime_tabuleiro(conjunto, 1);
 	    	printf("\n\n                               Sua mao:\n");
 	    	imprime_mao(player, numpl);
-	    	printf("\n\n                 O que deseja fazer?\n                 1-Adicionar uma carta\n                 2-Pegar uma carta\n\n                 0-Finalizar jogada");
+	    	printf("\n\n                 O que deseja fazer?\n                 1-Adicionar uma carta\n                 2-Pegar uma carta\n\n                 0-Finalizar jogada\n");
 	    	scanf("%d", &opt);
 	    	if (opt == 1)
 	    	{
-	    		conjunto = adicionar_carta(conjunto, player, numpl);
+	    		adicionar_carta(conjunto, player, numpl);
 	    	}
+	    	clear();
 		}
 
     	numpl = (numpl + 1)%player_nbr;
