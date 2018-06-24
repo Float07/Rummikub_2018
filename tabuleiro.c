@@ -16,9 +16,14 @@ void imprime_tabuleiro(t_tabuleiro_ptr conjunto, int n)
     	printf("\n");
 	}
 	printf("%d. ", n);
-	for (int i = 0; i < conjunto->n; ++i){
-		printf("la");
-		printf("%c%c ", conjunto->carta[i].nbr, conjunto->carta[i].cor );
+	for (int i = 0; i < 13; ++i){
+		if (conjunto->carta[i].nbr == '0')
+		{
+			printf("    ");
+		}else
+		{
+			printf("%c%c  ", conjunto->carta[i].nbr, conjunto->carta[i].cor);
+		}
 	}
 	printf("\n");
 	if(conjunto->next != NULL)
@@ -94,7 +99,7 @@ t_tabuleiro_ptr adicionar_carta(t_tabuleiro_ptr conjunto, t_player* player, int 
 		conjunto->n = 0;
 		for (int i = 0; i < 13; ++i)
 		{
-			conjunto->carta[i].nbr = 0;
+			conjunto->carta[i].nbr = '0';
 		}
 	}
 	return conjunto;
