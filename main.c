@@ -76,7 +76,7 @@ int main()
 	    	scanf("%d", &opt);
 	    	if (opt == 1)
 	    	{
-	    		adicionar_carta(conjunto, player, numpl);
+	    		conjunto = adicionar_carta(conjunto, player, numpl);
 	    	}
 		}
 

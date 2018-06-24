@@ -3,24 +3,12 @@
 #include <stdlib.h>
 #include "Rummikub.h"
 
-/*
-void criar_conjunto(t_tabuleiro_ptr novo, int numpl) {
-	int aux;
-	int num;
-	printf("Quais cartas vc deseja adicionar?(no minimo 3)\n")
-	for (int i = 0; i < t_player.cards; ++i)
-	{
-		printf("%d. %c%c  ", i+1, player[numpl].carta[i].nbr, player[numpl].carta[i].cor )
-		
-	}
- 	scanf("%d", num);
-}
 
-*/
 void imprime_tabuleiro(t_tabuleiro_ptr conjunto, int n)
 {
 	if (n == 1)
 	{	
+		printf("   ");
    		for (int i = 0; i < 13; ++i)
     	{
    			printf("%c    ", 'A'+i);
@@ -29,12 +17,13 @@ void imprime_tabuleiro(t_tabuleiro_ptr conjunto, int n)
 	}
 	printf("%d. ", n);
 	for (int i = 0; i < conjunto->n; ++i){
+		printf("la");
 		printf("%c%c ", conjunto->carta[i].nbr, conjunto->carta[i].cor );
 	}
 	printf("\n");
 	if(conjunto->next != NULL)
 	{
-			imprime_tabuleiro(conjunto->next, n+1);
+		imprime_tabuleiro(conjunto->next, n+1);
 	}
 	else
 	{
@@ -64,7 +53,7 @@ void imprime_mao(t_player* player, int numpl)
 	}
 }
 
-void adicionar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
+t_tabuleiro_ptr adicionar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 {
 	t_tabuleiro_ptr conjunto_temp = conjunto;
 	int linha;
@@ -96,4 +85,17 @@ void adicionar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 	scanf("%d", &card);
 
 	conjunto_temp->carta[n_coluna] = player[numpl].carta[card];
+
+	if (conjunto_temp->next == NULL)
+	{
+		conjunto = (t_tabuleiro*)malloc(sizeof(t_tabuleiro));
+		conjunto->next = conjunto_temp;
+		printf("ojfnaoujfnsdojgnvsojvndfjobvnsjonbfjobnsdjobnfdjobndajnbatata\n");
+		conjunto->n = 0;
+		for (int i = 0; i < 13; ++i)
+		{
+			conjunto->carta[i].nbr = 0;
+		}
+	}
+	return conjunto;
 }
