@@ -77,6 +77,9 @@ int main()
 	    	if (opt == 1)
 	    	{
 	    		adicionar_carta(conjunto, player, numpl);
+	    	}else if(opt == 2)
+	    	{
+	    		pegar_carta(conjunto, player, numpl);
 	    	}
 	    	clear();
 		}

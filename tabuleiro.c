@@ -108,3 +108,43 @@ void adicionar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 		}
 	}
 }
+
+void pegar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
+{
+	int linha;
+	char coluna;
+	int n_coluna;
+	t_tabuleiro_ptr conjunto_temp = conjunto;
+
+	printf("Que carta deseja adicionar ao seu baralho?\n");
+	printf("Linha: ");
+	scanf("%d", &linha);
+	printf("Coluna: ");
+	scanf(" %c", &coluna);
+
+	if (coluna >= 'a' && coluna <= 'm')
+	{
+		n_coluna = coluna - 'a';
+	}else if (coluna >= 'A' && coluna <= 'M')
+	{
+		n_coluna = coluna - 'A';
+	}else{
+		printf("Coluna invalida!!!\n");
+		exit(0);
+	}
+
+	for (int i = 0; i < linha - 1; ++i)
+	{
+		conjunto_temp = conjunto_temp->next;
+	}
+
+	if (conjunto_temp->carta[n_coluna].nbr == '0')
+	{
+		printf("Nao existe carta aqui!");
+	}else{
+		player[numpl].carta[player[numpl].cards] = conjunto_temp->carta[n_coluna];
+		player[numpl].cards++;
+		conjunto_temp->carta[n_coluna].nbr = '0';
+		conjunto_temp->n--;
+	}
+}
