@@ -161,3 +161,45 @@ void resetar_jogada(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_p
 	}
 	player[numpl] = player_temp;
 }
+void checar(t_tabuleiro_ptr conjunto){
+	int tipo; //verifica se eh uma trinca(1), sequencia(2) ou invalida(3)
+	int flag = 1;
+	int c;
+	int i;
+	while(conjunto != NULL)
+	{
+		c = 0;
+		tipo = 0;
+		for (i = 0; !tipo; ++i)
+		{
+			if (conjunto->carta[i].nbr != '0')
+			{
+				if(conjunto->carta[i].nbr == (conjunto->carta[i+1].nbr) - 1){
+					tipo = 2;
+				}else if (conjunto->carta[i].nbr == conjunto->carta[i+1].nbr)
+				{
+					tipo = 1;
+				}else{
+					tipo = 3;
+				}
+			}
+		}
+		if (tipo == 2)
+		{
+			for (i ; (i < 13) && (conjunto->carta[i].nbr !='0'); ++i)
+			{
+				if ((conjunto->carta[i].cor != conjunto->carta[i+1].cor) && (conjuto->carta[i].nbr != (conjunto->carta[i+1].nbr)-1) )
+				{
+					flag = 0;
+					break;
+				}else{
+					c++;
+				}
+				if (c < 3)
+				{
+					flag = 0;
+				}
+			}
+		}
+	}
+}

@@ -122,7 +122,7 @@ void comprar_carta(t_player* player, t_carta* baralho, int* cartas_baralho, int 
 	clear();
 }
 
-void copia_jogada(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_player* player, t_player* player_temp, int numpl)
+void copia_reset(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_player* player, t_player* player_temp, int numpl)
 {
 	while(conjunto != NULL)
 	{
