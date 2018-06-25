@@ -150,3 +150,14 @@ void pegar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 		conjunto_temp->n--;
 	}
 }
+
+void resetar_jogada(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_player* player, t_player player_temp, int numpl)
+{
+	while(conjunto->next != NULL)
+	{
+		*conjunto = *conjunto_temp;
+		conjunto = conjunto->next;
+		conjunto_temp = conjunto_temp->next;
+	}
+	player[numpl] = player_temp;
+}

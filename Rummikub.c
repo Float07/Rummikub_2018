@@ -121,3 +121,18 @@ void comprar_carta(t_player* player, t_carta* baralho, int* cartas_baralho, int 
 	player[numpl].cards++;
 	clear();
 }
+
+void copia_jogada(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_player* player, t_player* player_temp, int numpl)
+{
+	while(conjunto != NULL)
+	{
+		if (conjunto_temp == NULL)
+		{
+			conjunto_temp = (t_tabuleiro_ptr)malloc(sizeof(t_tabuleiro));
+		}
+		*conjunto_temp = *conjunto;
+		conjunto_temp = conjunto_temp->next;
+		conjunto = conjunto->next;
+	}
+	*player_temp = player[numpl];
+}
