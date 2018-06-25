@@ -107,6 +107,7 @@ void adicionar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 			conjunto_temp->carta[i].nbr = '0';
 		}
 	}
+	clear();
 }
 
 void pegar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
@@ -138,6 +139,7 @@ void pegar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 		conjunto_temp = conjunto_temp->next;
 	}
 
+	clear();
 	if (conjunto_temp->carta[n_coluna].nbr == '0')
 	{
 		printf("Nao existe carta aqui!");

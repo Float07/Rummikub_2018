@@ -68,12 +68,19 @@ int main()
     	printf("vez do jogador %d!\n", numpl + 1);
 
     	while(!finalizar){
-	    	printf("                 Mesa:\n");
+	    	printf("                               Mesa:\n");
 	    	imprime_tabuleiro(conjunto, 1);
 	    	printf("\n\n                               Sua mao:\n");
 	    	imprime_mao(player, numpl);
 	    	printf("\n\n                 O que deseja fazer?\n                 1-Adicionar uma carta\n                 2-Pegar uma carta\n\n                 0-Finalizar jogada\n");
 	    	scanf("%d", &opt);
+
+	    	clear();
+	    	printf("                               Mesa:\n");
+	    	imprime_tabuleiro(conjunto, 1);
+	    	printf("\n\n                               Sua mao:\n");
+	    	imprime_mao(player, numpl);
+	    	printf("\n");
 	    	if (opt == 1)
 	    	{
 	    		adicionar_carta(conjunto, player, numpl);
@@ -81,7 +88,6 @@ int main()
 	    	{
 	    		pegar_carta(conjunto, player, numpl);
 	    	}
-	    	clear();
 		}
 
     	numpl = (numpl + 1)%player_nbr;
