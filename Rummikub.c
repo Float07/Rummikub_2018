@@ -119,4 +119,5 @@ void comprar_carta(t_player* player, t_carta* baralho, int* cartas_baralho, int 
 	}
 	(*cartas_baralho)--;
 	player[numpl].cards++;
+	clear();
 }

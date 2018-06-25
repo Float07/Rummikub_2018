@@ -72,7 +72,7 @@ int main()
 	    	imprime_tabuleiro(conjunto, 1);
 	    	printf("\n\n                               Sua mao:\n");
 	    	imprime_mao(player, numpl);
-	    	printf("\n\n                 O que deseja fazer?\n                 1-Adicionar uma carta\n                 2-Pegar uma carta\n\n                 0-Finalizar jogada\n");
+	    	printf("\n\n                 O que deseja fazer?\n                 1-Adicionar uma carta\n                 2-Pegar uma carta\n                 3-Comprar uma carta\n\n                 0-Finalizar jogada\n");
 	    	scanf("%d", &opt);
 
 	    	clear();
@@ -87,6 +87,9 @@ int main()
 	    	}else if(opt == 2)
 	    	{
 	    		pegar_carta(conjunto, player, numpl);
+	    	}else if (opt == 3)
+	    	{
+	    		comprar_carta(player, baralho, &cartas_baralho, numpl);
 	    	}
 		}
 
