@@ -182,7 +182,7 @@ int checar(t_tabuleiro_ptr conjunto){
 		{
 			if (conjunto->carta[i].nbr != '0')
 			{
-				if(conjunto->carta[i].nbr == (conjunto->carta[i+1].nbr) - 1 && ){
+				if(conjunto->carta[i].nbr == (conjunto->carta[i+1].nbr) - 1){
 					tipo = 2;
 				}else if (conjunto->carta[i].nbr == conjunto->carta[i+1].nbr)
 				{
@@ -197,7 +197,7 @@ int checar(t_tabuleiro_ptr conjunto){
 		{
 			for (i ; (i < 13) && (conjunto->carta[i].nbr !='0'); ++i)
 			{
-				if (((conjunto->carta[i].cor != conjunto->carta[i+1].cor) || (conjuto->carta[i].nbr != (conjunto->carta[i+1].nbr)-1))&&(conjunto->carta[i+1].nbr != '0')&&(i < 13))
+				if (((conjunto->carta[i].cor != conjunto->carta[i+1].cor) || (conjunto->carta[i].nbr != (conjunto->carta[i+1].nbr)-1))&&(conjunto->carta[i+1].nbr != '0')&&(i < 13))
 				{
 					flag = 0;
 					return flag;
@@ -208,7 +208,7 @@ int checar(t_tabuleiro_ptr conjunto){
 		}
 		if (tipo == 1)
 		{
-			for (i = 0; (i < 13)&&(conjunto->carta[i].); ++i)
+			for (i = 0; (i < 13)&&(conjunto->carta[i].nbr != '0'); ++i)
 			{
 				if ((conjunto->carta[i].nbr != conjunto->carta[i+1].nbr)&&(conjunto->carta[i+1].nbr != '0')&&(i<13))
 				{
@@ -245,7 +245,7 @@ int checar(t_tabuleiro_ptr conjunto){
 
 		for (i ; i < 13; ++i)
 		{
-			if(conjuto->carta[i].nbr != '0')
+			if(conjunto->carta[i].nbr != '0')
 			{
 				flag = 0;
 				break;
