@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "Rummikub.h"
 
+#define CORES {'!','@','#','$'}
 
 void imprime_tabuleiro(t_tabuleiro_ptr conjunto, int n)
 {
@@ -161,26 +162,34 @@ void resetar_jogada(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_p
 	}
 	player[numpl] = player_temp;
 }
-void checar(t_tabuleiro_ptr conjunto){
+
+int checar(t_tabuleiro_ptr conjunto){
 	int tipo; //verifica se eh uma trinca(1), sequencia(2) ou invalida(3)
 	int flag = 1;
 	int c;
 	int i;
+	char cores[4] = CORES;
+	int cores_usadas[4]; //no caso da trinca ou quadra, verifica qual cor ja foi usada
 	while(conjunto != NULL)
 	{
+		for (i = 0; i < 4; ++i)
+		{
+			cores_usadas[i] = 0;
+		}
 		c = 0;
 		tipo = 0;
 		for (i = 0; !tipo; ++i)
 		{
 			if (conjunto->carta[i].nbr != '0')
 			{
-				if(conjunto->carta[i].nbr == (conjunto->carta[i+1].nbr) - 1){
+				if(conjunto->carta[i].nbr == (conjunto->carta[i+1].nbr) - 1 && ){
 					tipo = 2;
 				}else if (conjunto->carta[i].nbr == conjunto->carta[i+1].nbr)
 				{
 					tipo = 1;
 				}else{
-					tipo = 3;
+					flag = 0;
+					return flag;
 				}
 			}
 		}
@@ -188,18 +197,67 @@ void checar(t_tabuleiro_ptr conjunto){
 		{
 			for (i ; (i < 13) && (conjunto->carta[i].nbr !='0'); ++i)
 			{
-				if ((conjunto->carta[i].cor != conjunto->carta[i+1].cor) && (conjuto->carta[i].nbr != (conjunto->carta[i+1].nbr)-1) )
+				if (((conjunto->carta[i].cor != conjunto->carta[i+1].cor) || (conjuto->carta[i].nbr != (conjunto->carta[i+1].nbr)-1))&&(conjunto->carta[i+1].nbr != '0')&&(i < 13))
 				{
 					flag = 0;
-					break;
+					return flag;
 				}else{
 					c++;
 				}
-				if (c < 3)
-				{
-					flag = 0;
-				}
 			}
 		}
+		if (tipo == 1)
+		{
+			for (i = 0; (i < 13)&&(conjunto->carta[i].); ++i)
+			{
+				if ((conjunto->carta[i].nbr != conjunto->carta[i+1].nbr)&&(conjunto->carta[i+1].nbr != '0')&&(i<13))
+				{
+					flag = 0;
+					return flag;
+				}else
+				{
+					c++;
+					if (conjunto->carta[i].cor == cores[0])
+					{
+						cores_usadas[0]++;
+					}else if (conjunto->carta[i].cor == cores[1])
+					{
+						cores_usadas[1]++;
+					}else if (conjunto->carta[i].cor == cores[2])
+					{
+						cores_usadas[2]++;
+					}else if (conjunto->carta[i].cor == cores[3])
+					{
+						cores_usadas[3]++;
+					}
+				}
+				for (int k = 0; k < 4 ; ++k)
+				{
+					if (cores_usadas[k] != 1)
+					{
+						flag = 0;
+						return flag;
+					}
+				}
+			}
+
+		}
+
+		for (i ; i < 13; ++i)
+		{
+			if(conjuto->carta[i].nbr != '0')
+			{
+				flag = 0;
+				break;
+			}
+		}	
+
+		if (c < 3)
+		{
+			flag = 0;
+			return flag;
+		}
+
+		return flag;
 	}
 }
