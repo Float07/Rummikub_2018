@@ -12,8 +12,9 @@ int main()
 	clock_t seed = clock();
 	srand(seed);//define uma seed para o rand
     clear();
-
+    int primeira;
     t_player* player;
+    t_player player_temp;
     t_carta* baralho;
     baralho = (t_carta*)malloc((CARTA_NBR+CORINGA_NBR)*sizeof(t_carta));
     if (baralho == NULL)
@@ -24,6 +25,7 @@ int main()
 
     /*cria e zera o conjunto de cartas*/
     t_tabuleiro_ptr conjunto = (t_tabuleiro*)malloc(sizeof(t_tabuleiro));
+    t_tabuleiro* conjunto_temp = NULL;
     if (conjunto == NULL)
     {
     	printf("Memoria insuficiente, encerrando!\n");
@@ -62,26 +64,33 @@ int main()
    	clear();
 
     player = alocar_jogadores(player_nbr);
+    for (int i = 0; i <= player_nbr; ++i)
+    {
+        player->numjogada=0;
+    }
     distribuir_baralho(player_nbr, player, baralho, &cartas_baralho);
     while(!victory)
     {
     	printf("vez do jogador %d!\n", numpl + 1);
 
     	while(!finalizar){
-	    	printf("                               Mesa:\n");
-	    	imprime_tabuleiro(conjunto, 1);
+	    	copia_reset(conjunto_temp, conjunto , player, &player_temp , numpl);
+            printf("                               Mesa:\n");
+            imprime_tabuleiro(conjunto, 1);
 	    	printf("\n\n                               Sua mao:\n");
 	    	imprime_mao(player, numpl);
 	    	printf("\n\n                 O que deseja fazer?\n                 1-Adicionar uma carta\n                 2-Pegar uma carta\n                 3-Comprar uma carta\n\n                 0-Finalizar jogada\n");
 	    	scanf("%d", &opt);
-
 	    	clear();
 	    	printf("                               Mesa:\n");
 	    	imprime_tabuleiro(conjunto, 1);
 	    	printf("\n\n                               Sua mao:\n");
 	    	imprime_mao(player, numpl);
 	    	printf("\n");
-	    	if (opt == 1)
+	    	if(player->numjogada == 0){
+                primeira = somar_mao(player , numpl);
+            }
+            if (opt == 1)
 	    	{
 	    		adicionar_carta(conjunto, player, numpl);
 	    	}else if(opt == 2)
@@ -91,7 +100,22 @@ int main()
 	    	{
 	    		comprar_carta(player, baralho, &cartas_baralho, numpl);
 	    	}
-		}
+            else if(opt == 0){
+                if(player[numpl].numjogada == 0){
+                    printf("qualquer coisa0\n");
+                    int aux = somar_mao(player, numpl)-primeira;
+                    if (aux < 30)
+                    {
+                        printf("qualquer coisa1\n");
+                        resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl); //primeira jogada nao somou 30 nas cartas
+                    }
+                    else{
+                        printf("qualquer coisa2\n");
+                        player[numpl].numjogada++;
+                    }
+                }
+            }		
+        }
 
     	numpl = (numpl + 1)%player_nbr;
     }

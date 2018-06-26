@@ -260,4 +260,13 @@ int checar(t_tabuleiro_ptr conjunto){
 
 		return flag;
 	}
+}*/
+int somar_mao(t_player* player, int numpl){
+	int cont = 0;
+	for (int i = 0; i < player[numpl].cards; i++)
+	{
+		cont =  (cont) +(int) ( player[numpl].carta[i].nbr - '0') ;
+	}
+	return cont;
 }
+
