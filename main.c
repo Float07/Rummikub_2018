@@ -9,8 +9,6 @@
 
 int main()
 {	
-	clock_t seed = clock();
-	srand(seed);//define uma seed para o rand
     clear();
     int primeira;
     t_player* player;
@@ -60,13 +58,15 @@ int main()
             flag = 1;
         }
     }
+    clock_t seed = clock();
+    srand(seed);//define uma seed para o rand
     flag = 0;
    	clear();
 
     player = alocar_jogadores(player_nbr);
     for (int i = 0; i <= player_nbr; ++i)
     {
-        player->numjogada=0;
+        player[i].numjogada=0;
     }
     distribuir_baralho(player_nbr, player, baralho, &cartas_baralho);
     while(!victory)
@@ -103,7 +103,7 @@ int main()
             else if(opt == 0){
                 if(player[numpl].numjogada == 0){
                     printf("qualquer coisa0\n");
-                    int aux = somar_mao(player, numpl)-primeira;
+                    int aux = primeira-somar_mao(player, numpl);
                     if (aux < 30)
                     {
                         printf("qualquer coisa1\n");
