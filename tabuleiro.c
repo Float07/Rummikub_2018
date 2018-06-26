@@ -161,7 +161,7 @@ void resetar_jogada(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_p
 	}
 	player[numpl] = player_temp;
 }
-void checar(t_tabuleiro_ptr conjunto){
+/*void checar(t_tabuleiro_ptr conjunto){
 	int tipo; //verifica se eh uma trinca(1), sequencia(2) ou invalida(3)
 	int flag = 1;
 	int c;
@@ -202,4 +202,13 @@ void checar(t_tabuleiro_ptr conjunto){
 			}
 		}
 	}
+}*/
+int somar_mao(t_player* player, int numpl){
+	int cont = 0;
+	for (int i = 0; i < player[numpl].cards; i++)
+	{
+		cont =  (cont) +(int) ( player[numpl].carta[i].nbr - '0') ;
+	}
+	return cont;
 }
+
