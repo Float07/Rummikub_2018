@@ -173,7 +173,6 @@ void resetar_jogada(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_p
 		conjunto = conjunto->next;
 		conjunto_temp = conjunto_temp->next;
 	}
-	imprime_tabuleiro(conjunto_temp, 1);
 	conjunto = aux;
 	while(conjunto != NULL)
 	{
@@ -185,6 +184,8 @@ void resetar_jogada(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_p
 		}else
 		{
 			free(conjunto);
+			conjunto = aux;
+			conjunto = conjunto->next;
 		}
 	}
 	player[numpl] = player_temp;
