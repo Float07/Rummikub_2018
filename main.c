@@ -46,7 +46,7 @@ int main()
     int opt; //registra a escolha do player durante sua jogada
 
     criar_baralho(baralho);
-    printf("                          -----------------------------\n");
+    printf("                          ----------------------------\n");
     printf("                          |   Bem Vindo ao Rummikub!  |\n");
     printf("                          -----------------------------\n");
     while(!flag){
@@ -73,7 +73,8 @@ int main()
     {
     	printf("vez do jogador %d!\n", numpl + 1);
 
-    	while(!finalizar){
+    	finalizar = 0;
+        while(!finalizar){
 	    	copia_reset(conjunto_temp, conjunto , player, &player_temp , numpl);
             printf("                               Mesa:\n");
             imprime_tabuleiro(conjunto, 1);
@@ -99,7 +100,8 @@ int main()
 	    	}else if (opt == 3)
 	    	{
 	    		comprar_carta(player, baralho, &cartas_baralho, numpl);
-	    	}
+	    	    finalizar = 1;
+            }
             else if(opt == 0){
                 if(player[numpl].numjogada == 0){
                     printf("qualquer coisa0\n");
