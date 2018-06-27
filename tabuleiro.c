@@ -154,21 +154,26 @@ void resetar_jogada(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_p
 {
 	t_tabuleiro_ptr next_temp;
 	t_tabuleiro_ptr aux;
-	printf("%d\n", conjunto_temp->next);
 	while(conjunto_temp != NULL)
 	{
+		if (conjunto_temp->next == NULL)
+		{
+			for (int i = 0; i < 13; ++i)
+			{
+				conjunto->carta[i].nbr = '0';
+			}
+			aux = conjunto->next;
+			conjunto->next = NULL;
+			break;
+		}
 		for (int i = 0; i < 13; ++i)
 		{
 			conjunto->carta[i] = conjunto_temp->carta[i];
 		}
 		conjunto = conjunto->next;
 		conjunto_temp = conjunto_temp->next;
-		if (conjunto_temp->next == NULL)
-		{
-			aux = conjunto->next;
-			conjunto->next = NULL;
-		}
 	}
+	imprime_tabuleiro(conjunto_temp, 1);
 	conjunto = aux;
 	while(conjunto != NULL)
 	{
