@@ -23,17 +23,27 @@ int main()
 
     /*cria e zera o conjunto de cartas*/
     t_tabuleiro_ptr conjunto = (t_tabuleiro*)malloc(sizeof(t_tabuleiro));
-    t_tabuleiro* conjunto_temp = NULL;
     if (conjunto == NULL)
     {
     	printf("Memoria insuficiente, encerrando!\n");
     	exit(0);
     }
-    conjunto->n = 0;
     conjunto->next = NULL;
     for (int i = 0; i < 13; ++i)
     {
     	conjunto->carta[i].nbr = '0';
+    }
+
+    t_tabuleiro* conjunto_temp = (t_tabuleiro_ptr)malloc(sizeof(t_tabuleiro));
+    if (conjunto_temp == NULL)
+    {
+        printf("Memoria insuficiente! Encerrando =(\n");
+        exit(0);
+    }
+    conjunto_temp->next = NULL;
+    for (int i = 0; i < 13; ++i)
+    {
+        conjunto_temp->carta[i].nbr = '0';
     }
     /*cria e zera o conjunto de cartas*/
 
@@ -75,7 +85,7 @@ int main()
 
     	finalizar = 0;
         while(!finalizar){
-	    	copia_reset(conjunto_temp, conjunto , player, &player_temp , numpl);
+	    	conjunto_temp = copia_reset(conjunto_temp, conjunto , player, &player_temp , numpl);
             printf("                               Mesa:\n");
             imprime_tabuleiro(conjunto, 1);
 	    	printf("\n\n                               Sua mao:\n");
@@ -104,15 +114,12 @@ int main()
             }
             else if(opt == 0){
                 if(player[numpl].numjogada == 0){
-                    printf("qualquer coisa0\n");
                     int aux = primeira-somar_mao(player, numpl);
                     if (aux < 30)
                     {
-                        printf("qualquer coisa1\n");
                         resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl); //primeira jogada nao somou 30 nas cartas
                     }
                     else{
-                        printf("qualquer coisa2\n");
                         player[numpl].numjogada++;
                     }
                 }

@@ -101,7 +101,6 @@ void adicionar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 	{
 		conjunto_temp->next = (t_tabuleiro_ptr)malloc(sizeof(t_tabuleiro));
 		conjunto_temp = conjunto_temp->next;
-		conjunto_temp->n = 0;
 		conjunto_temp->next = NULL;
 		for (int i = 0; i < 13; ++i)
 		{
@@ -148,15 +147,21 @@ void pegar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 		player[numpl].carta[player[numpl].cards] = conjunto_temp->carta[n_coluna];
 		player[numpl].cards++;
 		conjunto_temp->carta[n_coluna].nbr = '0';
-		conjunto_temp->n--;
 	}
 }
 
 void resetar_jogada(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_player* player, t_player player_temp, int numpl)
 {
+	t_tabuleiro_ptr next_temp;
 	while(conjunto->next != NULL)
 	{
-		*conjunto = *conjunto_temp;
+		next_temp = conjunto->next;
+		for (int i = 0; i < 13; ++i)
+		{
+			printf("OI VALSA LINDO\n");
+			conjunto->carta[i] = conjunto_temp->carta[i];
+		}
+		conjunto->next = next_temp;
 		conjunto = conjunto->next;
 		conjunto_temp = conjunto_temp->next;
 	}
@@ -260,7 +265,8 @@ int checar(t_tabuleiro_ptr conjunto){
 
 		return flag;
 	}
-}*/
+}
+
 int somar_mao(t_player* player, int numpl){
 	int cont = 0;
 	for (int i = 0; i < player[numpl].cards; i++)
@@ -269,6 +275,7 @@ int somar_mao(t_player* player, int numpl){
 	}
 	return cont;
 }
+
 int* fim_jogo(int player_nbr , t_player* player ){
 	int total;
 	int* cont;

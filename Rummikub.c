@@ -122,17 +122,25 @@ void comprar_carta(t_player* player, t_carta* baralho, int* cartas_baralho, int 
 	clear();
 }
 
-void copia_reset(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_player* player, t_player* player_temp, int numpl)
+t_tabuleiro_ptr copia_reset(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_player* player, t_player* player_temp, int numpl)
 {
+	t_tabuleiro_ptr next_temp;
+	t_tabuleiro_ptr conjunto_aux = conjunto_temp;
 	while(conjunto != NULL)
 	{
-		if (conjunto_temp == NULL)
+		if (conjunto_aux->next == NULL)
 		{
-			conjunto_temp = (t_tabuleiro_ptr)malloc(sizeof(t_tabuleiro));
+			conjunto_aux->next = (t_tabuleiro_ptr)malloc(sizeof(t_tabuleiro));
+			(conjunto_aux->next)->next = NULL;
 		}
-		*conjunto_temp = *conjunto;
-		conjunto_temp = conjunto_temp->next;
+		for (int i = 0; i < 13; ++i)
+		{
+			conjunto_aux->carta[i] = conjunto->carta[i];
+		}
+
+		conjunto_aux =conjunto_aux->next;
 		conjunto = conjunto->next;
 	}
 	*player_temp = player[numpl];
+	return conjunto_temp;
 }

@@ -13,7 +13,6 @@ typedef struct{
 }t_player;
 
 struct tabuleiro{
-	int n;
 	t_carta carta[13];
 	struct tabuleiro *next;
 };
@@ -31,8 +30,8 @@ void imprime_mao(t_player* player, int numpl); //imprime a mao do jogador na tel
 void adicionar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl); //Deixa o player posicionar uma carta no tabuleiro
 void pegar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl); //Deixa o player pegar uma carta da mesa
 void resetar_jogada(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_player* player, t_player player_temp, int numpl); //Reseta o tabuleiro para o inicio da jogada caso o player faça uma jogada errada
-void copia_reset(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_player* player, t_player* player_temp, int numpl); //Copia o tabuleiro e o player para que se possa resetar a jogada
+t_tabuleiro_ptr copia_reset(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_player* player, t_player* player_temp, int numpl); //Copia o tabuleiro e o player para que se possa resetar a jogada
 int checar(t_tabuleiro_ptr conjunto); //Checa se a jogada eh valida
 int somar_mao(t_player* player, int numpl); // Soma a mao do jogador
-int* fim_jogo(int player_nbr , t_player* player ); // Calcula os pontos no final do jogo
+int* fim_jogo(int player_nbr , t_player* player); // Calcula os pontos no final do jogo
 #endif // RUMMIKUB_H_INCLUDED
