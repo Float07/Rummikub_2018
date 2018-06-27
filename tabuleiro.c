@@ -152,7 +152,6 @@ void pegar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 
 void resetar_jogada(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_player* player, t_player player_temp, int numpl)
 {
-	t_tabuleiro_ptr next_temp;
 	t_tabuleiro_ptr aux;
 	while(conjunto_temp != NULL)
 	{
@@ -184,8 +183,7 @@ void resetar_jogada(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_p
 		}else
 		{
 			free(conjunto);
-			conjunto = aux;
-			conjunto = conjunto->next;
+			conjunto = NULL;
 		}
 	}
 	player[numpl] = player_temp;
@@ -223,7 +221,7 @@ int checar(t_tabuleiro_ptr conjunto){
 		}
 		if (tipo == 2)
 		{
-			for (i ; (i < 13) && (conjunto->carta[i].nbr !='0'); ++i)
+			for ( ; (i < 13) && (conjunto->carta[i].nbr !='0'); ++i)
 			{
 				if (((conjunto->carta[i].cor != conjunto->carta[i+1].cor) || (conjunto->carta[i].nbr != (conjunto->carta[i+1].nbr)-1))&&(conjunto->carta[i+1].nbr != '0')&&(i < 13))
 				{
@@ -271,7 +269,7 @@ int checar(t_tabuleiro_ptr conjunto){
 
 		}
 
-		for (i ; i < 13; ++i)
+		for ( ; i < 13; ++i)
 		{
 			if(conjunto->carta[i].nbr != '0')
 			{
@@ -285,9 +283,8 @@ int checar(t_tabuleiro_ptr conjunto){
 			flag = 0;
 			return flag;
 		}
-
-		return flag;
 	}
+	return flag;
 }
 
 int somar_mao(t_player* player, int numpl){

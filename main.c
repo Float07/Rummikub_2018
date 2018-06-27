@@ -78,6 +78,7 @@ int main()
     {
         player[i].numjogada=0;
     }
+    player_temp.carta = (t_carta*)malloc((CARTA_NBR+CORINGA_NBR)*sizeof(t_carta));
     distribuir_baralho(player_nbr, player, baralho, &cartas_baralho);
     while(!victory)
     {
@@ -118,7 +119,6 @@ int main()
                     if (aux < 30)
                     {
                         resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl); //primeira jogada nao somou 30 nas cartas
-                        printf("RESETOU\n");
                     }
                     else{
                         player[numpl].numjogada++;

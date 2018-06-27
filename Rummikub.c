@@ -124,7 +124,6 @@ void comprar_carta(t_player* player, t_carta* baralho, int* cartas_baralho, int 
 
 t_tabuleiro_ptr copia_reset(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_player* player, t_player* player_temp, int numpl)
 {
-	t_tabuleiro_ptr next_temp;
 	t_tabuleiro_ptr conjunto_aux = conjunto_temp;
 	while(conjunto->next != NULL)
 	{
@@ -145,6 +144,10 @@ t_tabuleiro_ptr copia_reset(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conju
 		conjunto_aux->carta[i].nbr = '0';
 	}
 	conjunto_aux->next = NULL;
-	*player_temp = player[numpl];
+	player_temp->cards = player[numpl].cards;
+	for (int i = 0; i < player[numpl].cards; ++i)
+	{
+		player_temp->carta[i] = player[numpl].carta[i];
+	}
 	return conjunto_temp;
 }
