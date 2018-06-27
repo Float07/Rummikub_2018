@@ -153,17 +153,34 @@ void pegar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 void resetar_jogada(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_player* player, t_player player_temp, int numpl)
 {
 	t_tabuleiro_ptr next_temp;
-	while(conjunto->next != NULL)
+	t_tabuleiro_ptr aux;
+	printf("%d\n", conjunto_temp->next);
+	while(conjunto_temp != NULL)
 	{
-		next_temp = conjunto->next;
 		for (int i = 0; i < 13; ++i)
 		{
-			printf("OI VALSA LINDO\n");
 			conjunto->carta[i] = conjunto_temp->carta[i];
 		}
-		conjunto->next = next_temp;
 		conjunto = conjunto->next;
 		conjunto_temp = conjunto_temp->next;
+		if (conjunto_temp->next == NULL)
+		{
+			aux = conjunto->next;
+			conjunto->next = NULL;
+		}
+	}
+	conjunto = aux;
+	while(conjunto != NULL)
+	{
+		if (conjunto->next != NULL)
+		{
+			aux = conjunto->next;
+			free(conjunto);
+			conjunto = aux;
+		}else
+		{
+			free(conjunto);
+		}
 	}
 	player[numpl] = player_temp;
 }

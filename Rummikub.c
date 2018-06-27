@@ -126,12 +126,11 @@ t_tabuleiro_ptr copia_reset(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conju
 {
 	t_tabuleiro_ptr next_temp;
 	t_tabuleiro_ptr conjunto_aux = conjunto_temp;
-	while(conjunto != NULL)
+	while(conjunto->next != NULL)
 	{
 		if (conjunto_aux->next == NULL)
 		{
 			conjunto_aux->next = (t_tabuleiro_ptr)malloc(sizeof(t_tabuleiro));
-			(conjunto_aux->next)->next = NULL;
 		}
 		for (int i = 0; i < 13; ++i)
 		{
@@ -141,6 +140,11 @@ t_tabuleiro_ptr copia_reset(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conju
 		conjunto_aux =conjunto_aux->next;
 		conjunto = conjunto->next;
 	}
+	for (int i = 0; i < 13; ++i)
+	{
+		conjunto_aux->carta[i].nbr = '0';
+	}
+	conjunto_aux->next = NULL;
 	*player_temp = player[numpl];
 	return conjunto_temp;
 }

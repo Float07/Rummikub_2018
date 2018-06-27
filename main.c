@@ -82,10 +82,10 @@ int main()
     while(!victory)
     {
     	printf("vez do jogador %d!\n", numpl + 1);
+        conjunto_temp = copia_reset(conjunto_temp, conjunto , player, &player_temp , numpl);
 
     	finalizar = 0;
         while(!finalizar){
-	    	conjunto_temp = copia_reset(conjunto_temp, conjunto , player, &player_temp , numpl);
             printf("                               Mesa:\n");
             imprime_tabuleiro(conjunto, 1);
 	    	printf("\n\n                               Sua mao:\n");
@@ -118,6 +118,7 @@ int main()
                     if (aux < 30)
                     {
                         resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl); //primeira jogada nao somou 30 nas cartas
+                        printf("RESETOU\n");
                     }
                     else{
                         player[numpl].numjogada++;
