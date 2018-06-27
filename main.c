@@ -9,8 +9,6 @@
 
 int main()
 {	
-	clock_t seed = clock();
-	srand(seed);//define uma seed para o rand
     clear();
     int primeira;
     t_player* player;
@@ -48,7 +46,7 @@ int main()
     int opt; //registra a escolha do player durante sua jogada
 
     criar_baralho(baralho);
-    printf("                          -----------------------------\n");
+    printf("                          ----------------------------\n");
     printf("                          |   Bem Vindo ao Rummikub!  |\n");
     printf("                          -----------------------------\n");
     while(!flag){
@@ -60,20 +58,23 @@ int main()
             flag = 1;
         }
     }
+    clock_t seed = clock();
+    srand(seed);//define uma seed para o rand
     flag = 0;
    	clear();
 
     player = alocar_jogadores(player_nbr);
     for (int i = 0; i <= player_nbr; ++i)
     {
-        player->numjogada=0;
+        player[i].numjogada=0;
     }
     distribuir_baralho(player_nbr, player, baralho, &cartas_baralho);
     while(!victory)
     {
     	printf("vez do jogador %d!\n", numpl + 1);
 
-    	while(!finalizar){
+    	finalizar = 0;
+        while(!finalizar){
 	    	copia_reset(conjunto_temp, conjunto , player, &player_temp , numpl);
             printf("                               Mesa:\n");
             imprime_tabuleiro(conjunto, 1);
@@ -99,11 +100,12 @@ int main()
 	    	}else if (opt == 3)
 	    	{
 	    		comprar_carta(player, baralho, &cartas_baralho, numpl);
-	    	}
+	    	    finalizar = 1;
+            }
             else if(opt == 0){
                 if(player[numpl].numjogada == 0){
                     printf("qualquer coisa0\n");
-                    int aux = somar_mao(player, numpl)-primeira;
+                    int aux = primeira-somar_mao(player, numpl);
                     if (aux < 30)
                     {
                         printf("qualquer coisa1\n");

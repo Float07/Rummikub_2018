@@ -269,4 +269,28 @@ int somar_mao(t_player* player, int numpl){
 	}
 	return cont;
 }
-
+int* fim_jogo(int player_nbr , t_player* player ){
+	int total;
+	int* cont;
+	int* pontos;
+	cont = (int*) malloc ((player_nbr)*sizeof(int));
+	pontos = (int*) malloc ((player_nbr)*sizeof(int));
+	for (int i = 0; i < player_nbr; ++i)
+	{
+		cont[i] = somar_mao(player, i);
+	}
+	for (int i = 0; i < player_nbr; ++i)
+	{
+		if(somar_mao(player , i)==0){
+			for (int i = 0; i < player_nbr; ++i)
+			{
+				total= total + cont[i];
+			}
+			pontos[i]= total;
+		}
+		else{
+			pontos[i]=-cont[i];
+		}
+	}
+	return pontos;
+}
