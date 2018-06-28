@@ -165,7 +165,6 @@ void distribuir_baralho_texto(int player_nbr,t_player* player, t_carta* baralho,
 			fscanf(input, "%c", &player[c].carta[i].nbr);
 			fscanf(input, "%c", &player[c].carta[i].cor);
 			fscanf(input, "%c", &temp);
-			player[c].cards++;
 			for (int k = 0; k < *cartas_baralho; ++k)
 			{
 				if (baralho[k].nbr == player[c].carta[i].nbr && baralho[k].cor == player[c].carta[i].cor)
@@ -179,5 +178,9 @@ void distribuir_baralho_texto(int player_nbr,t_player* player, t_carta* baralho,
 				baralho[k] = baralho[k+1];
 			}
 		}
+	}
+	for (int i = 0; i < player_nbr; ++i)
+	{
+		player[i].cards = START_CARDS;
 	}
 }

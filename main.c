@@ -147,6 +147,7 @@ int main()
                     }else
                     {
                         player[numpl].numjogada++;
+                        finalizar = 1;
                     }
                 }
             }
