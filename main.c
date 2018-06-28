@@ -90,6 +90,7 @@ int main()
     {
         distribuir_baralho_texto(player_nbr, player, baralho, &cartas_baralho);
     }
+    clear();
     
     while(!victory)
     {

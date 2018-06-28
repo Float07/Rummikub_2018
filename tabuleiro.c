@@ -209,7 +209,7 @@ int checar(t_tabuleiro_ptr conjunto){
 	int i;
 	char cores[4] = CORES;
 	int cores_usadas[4]; //no caso da trinca ou quadra, verifica qual cor ja foi usada
-	while(conjunto != NULL)
+	while(conjunto->next != NULL)
 	{
 		for (i = 0; i < 4; ++i)
 		{
@@ -232,7 +232,6 @@ int checar(t_tabuleiro_ptr conjunto){
 				}
 			}
 		}
-		printf("%d\n", tipo);
 		if (tipo == 2)
 		{
 			for ( ; (i < 13) && (conjunto->carta[i].nbr !='0'); ++i)
@@ -273,16 +272,20 @@ int checar(t_tabuleiro_ptr conjunto){
 				}
 				for (int k = 0; k < 4 ; ++k)
 				{
+					int n = 0;
 					if (cores_usadas[k] != 1)
 					{
-						flag = 0;
-						return flag;
+						n++;
+						if (n >= 2)
+						{
+							flag = 0;
+							return flag;
+						}
 					}
 				}
 			}
 
 		}
-
 		for ( ; i < 13; ++i)
 		{
 			if(conjunto->carta[i].nbr != '0')
@@ -297,6 +300,7 @@ int checar(t_tabuleiro_ptr conjunto){
 			flag = 0;
 			return flag;
 		}
+		conjunto = conjunto->next;
 	}
 	return flag;
 }
