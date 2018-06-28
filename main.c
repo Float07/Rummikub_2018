@@ -55,6 +55,7 @@ int main()
     int numpl = 0; //indica o numero do player que está jogando
     int finalizar = 0; //verifica se o player deseja finalizar a jogada
     int opt; //registra a escolha do player durante sua jogada
+    int valida; //verifica se a jogada foi valida
 
     criar_baralho(baralho);
     printf("                          ----------------------------\n");
@@ -80,13 +81,25 @@ int main()
         player[i].numjogada=0;
     }
     player_temp.carta = (t_carta*)malloc((CARTA_NBR+CORINGA_NBR)*sizeof(t_carta));
-    distribuir_baralho(player_nbr, player, baralho, &cartas_baralho);
+
+    printf("Como deseja distribuir o baralho?(1-aleatorio/2-Arquivo de texto)\n");
+    scanf("%d", &opt);
+    if (opt == 1)
+    {
+        distribuir_baralho(player_nbr, player, baralho, &cartas_baralho);   
+    }else
+    {
+        distribuir_baralho_texto(player_nbr, player, baralho, &cartas_baralho);
+    }
+    clear();
+    
     while(!victory)
     {
     	printf("vez do jogador %d!\n", numpl + 1);
         conjunto_temp = copia_reset(conjunto_temp, conjunto , player, &player_temp , numpl);
 
     	finalizar = 0;
+        valida = 1;
         while(!finalizar){
             printf("                               Mesa:\n");
             imprime_tabuleiro(conjunto, 1);
@@ -100,7 +113,8 @@ int main()
 	    	printf("\n\n                               Sua mao:\n");
 	    	imprime_mao(player, numpl);
 	    	printf("\n");
-	    	if(player->numjogada == 0){
+	    	if(player->numjogada == 0)
+            {
                 primeira = somar_mao(player , numpl);
             }
             else{
@@ -114,18 +128,30 @@ int main()
 	    		mudar_pos(conjunto, player, numpl);
 	    	}else if (opt == 3)
 	    	{
+                resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl);
 	    		comprar_carta(player, baralho, &cartas_baralho, numpl);
 	    	    finalizar = 1;
             }
             else if(opt == 0){
                 if(player[numpl].numjogada == 0){
                     int aux = primeira-somar_mao(player, numpl);
-                    if (aux < 30)
+                    if (aux < 0)
                     {
                         resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl); //primeira jogada nao somou 30 nas cartas
+                        clear();
+                        valida = 0;
                     }
-                    else{
+                }
+                if (opt == 0)
+                {
+                    valida = checar(conjunto);
+                    if (!valida)
+                    {
+                        resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl);
+                    }else
+                    {
                         player[numpl].numjogada++;
+                        finalizar = 1;
                     }
                 }
                 else{
@@ -140,7 +166,6 @@ int main()
 
             }		
         }
-
     	numpl = (numpl + 1)%player_nbr;
     }
     
