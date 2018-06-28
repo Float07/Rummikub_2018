@@ -234,7 +234,7 @@ int checar(t_tabuleiro_ptr conjunto){
 		}
 		if (tipo == 2)
 		{
-			for ( ; (i < 13) && (conjunto->carta[i].nbr !='0'); ++i)
+			for (i-- ; (i < 13) && (conjunto->carta[i].nbr !='0'); ++i)
 			{
 				if (((conjunto->carta[i].cor != conjunto->carta[i+1].cor) || (conjunto->carta[i].nbr != (conjunto->carta[i+1].nbr)-1))&&(conjunto->carta[i+1].nbr != '0')&&(i < 13))
 				{
