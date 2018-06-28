@@ -151,3 +151,36 @@ t_tabuleiro_ptr copia_reset(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conju
 	}
 	return conjunto_temp;
 }
+
+void distribuir_baralho_texto(int player_nbr,t_player* player, t_carta* baralho, int* cartas_baralho)
+{
+	int k;
+	char temp;
+	FILE* input = fopen("baralho.txt", "rt");
+	for (int i = 0; i < START_CARDS; ++i)
+	{
+		for (int c = 0; c < player_nbr; ++c)
+		{
+			k = 0;
+			fscanf(input, "%c", &player[c].carta[i].nbr);
+			fscanf(input, "%c", &player[c].carta[i].cor);
+			fscanf(input, "%c", &temp);
+			for (int k = 0; k < *cartas_baralho; ++k)
+			{
+				if (baralho[k].nbr == player[c].carta[i].nbr && baralho[k].cor == player[c].carta[i].cor)
+				{
+					break;
+				}
+			}
+			(*cartas_baralho)--;
+			for ( ; k < *cartas_baralho; ++k)
+			{
+				baralho[k] = baralho[k+1];
+			}
+		}
+	}
+	for (int i = 0; i < player_nbr; ++i)
+	{
+		player[i].cards = START_CARDS;
+	}
+}

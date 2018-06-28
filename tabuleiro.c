@@ -90,7 +90,16 @@ void adicionar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 	printf("Qual carta deseja posicionar?\n");
 	scanf("%d", &card);
 
-	conjunto_temp->carta[n_coluna] = player[numpl].carta[card];
+	if (conjunto_temp->carta[n_coluna].nbr == '0')
+	{
+		conjunto_temp->carta[n_coluna] = player[numpl].carta[card];
+	}else
+	{
+		clear();
+		printf("Local ja ocupado!!\n");
+		return;
+	}
+
 	for (int i = card; i < player[numpl].cards; ++i)
 	{
 		player[numpl].carta[i] = player[numpl].carta[i + 1];
@@ -186,7 +195,11 @@ void resetar_jogada(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_p
 			conjunto = NULL;
 		}
 	}
-	player[numpl] = player_temp;
+	player[numpl].cards = player_temp.cards;
+	for (int i = 0; i < player_temp.cards; ++i)
+	{
+		player[numpl].carta[i] = player_temp.carta[i];
+	}
 }
 
 int checar(t_tabuleiro_ptr conjunto){
@@ -196,7 +209,7 @@ int checar(t_tabuleiro_ptr conjunto){
 	int i;
 	char cores[4] = CORES;
 	int cores_usadas[4]; //no caso da trinca ou quadra, verifica qual cor ja foi usada
-	while(conjunto != NULL)
+	while(conjunto->next != NULL)
 	{
 		for (i = 0; i < 4; ++i)
 		{
@@ -221,7 +234,7 @@ int checar(t_tabuleiro_ptr conjunto){
 		}
 		if (tipo == 2)
 		{
-			for ( ; (i < 13) && (conjunto->carta[i].nbr !='0'); ++i)
+			for (i-- ; (i < 13) && (conjunto->carta[i].nbr !='0'); ++i)
 			{
 				if (((conjunto->carta[i].cor != conjunto->carta[i+1].cor) || (conjunto->carta[i].nbr != (conjunto->carta[i+1].nbr)-1))&&(conjunto->carta[i+1].nbr != '0')&&(i < 13))
 				{
@@ -234,7 +247,7 @@ int checar(t_tabuleiro_ptr conjunto){
 		}
 		if (tipo == 1)
 		{
-			for (i = 0; (i < 13)&&(conjunto->carta[i].nbr != '0'); ++i)
+			for (i-- ; (i < 13)&&(conjunto->carta[i].nbr != '0'); ++i)
 			{
 				if ((conjunto->carta[i].nbr != conjunto->carta[i+1].nbr)&&(conjunto->carta[i+1].nbr != '0')&&(i<13))
 				{
@@ -259,16 +272,20 @@ int checar(t_tabuleiro_ptr conjunto){
 				}
 				for (int k = 0; k < 4 ; ++k)
 				{
+					int n = 0;
 					if (cores_usadas[k] != 1)
 					{
-						flag = 0;
-						return flag;
+						n++;
+						if (n >= 2)
+						{
+							flag = 0;
+							return flag;
+						}
 					}
 				}
 			}
 
 		}
-
 		for ( ; i < 13; ++i)
 		{
 			if(conjunto->carta[i].nbr != '0')
@@ -283,6 +300,7 @@ int checar(t_tabuleiro_ptr conjunto){
 			flag = 0;
 			return flag;
 		}
+		conjunto = conjunto->next;
 	}
 	return flag;
 }
