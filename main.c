@@ -80,7 +80,17 @@ int main()
         player[i].numjogada=0;
     }
     player_temp.carta = (t_carta*)malloc((CARTA_NBR+CORINGA_NBR)*sizeof(t_carta));
-    distribuir_baralho(player_nbr, player, baralho, &cartas_baralho);
+
+    printf("Como deseja distribuir o baralho?(1-aleatorio/2-Arquivo de texto)\n");
+    scanf("%d", &opt);
+    if (opt == 1)
+    {
+        distribuir_baralho(player_nbr, player, baralho, &cartas_baralho);   
+    }else
+    {
+        distribuir_baralho_texto(player_nbr, player, baralho, &cartas_baralho);
+    }
+    
     while(!victory)
     {
     	printf("vez do jogador %d!\n", numpl + 1);
@@ -120,7 +130,7 @@ int main()
             else if(opt == 0){
                 if(player[numpl].numjogada == 0){
                     int aux = primeira-somar_mao(player, numpl);
-                    if (aux < 30)
+                    if (aux < 0)
                     {
                         resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl); //primeira jogada nao somou 30 nas cartas
                         clear();

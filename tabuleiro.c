@@ -232,6 +232,7 @@ int checar(t_tabuleiro_ptr conjunto){
 				}
 			}
 		}
+		printf("%d\n", tipo);
 		if (tipo == 2)
 		{
 			for ( ; (i < 13) && (conjunto->carta[i].nbr !='0'); ++i)

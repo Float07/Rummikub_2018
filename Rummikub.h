@@ -34,4 +34,5 @@ t_tabuleiro_ptr copia_reset(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conju
 int checar(t_tabuleiro_ptr conjunto); //Checa se a jogada eh valida
 int somar_mao(t_player* player, int numpl); // Soma a mao do jogador
 int* fim_jogo(int player_nbr , t_player* player); // Calcula os pontos no final do jogo
+void distribuir_baralho_texto(int player_nbr,t_player* player, t_carta* baralho, int* cartas_baralho); //distribui baralho usando baralho.txt
 #endif // RUMMIKUB_H_INCLUDED
