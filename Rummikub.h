@@ -28,7 +28,7 @@ void comprar_carta(t_player* player, t_carta* baralho, int* cartas_baralho, int 
 void imprime_tabuleiro(t_tabuleiro_ptr conjunto, int n); //função que imprime tabuleiro
 void imprime_mao(t_player* player, int numpl); //imprime a mao do jogador na tela
 void adicionar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl); //Deixa o player posicionar uma carta no tabuleiro
-void pegar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl); //Deixa o player pegar uma carta da mesa
+void mudar_pos(t_tabuleiro_ptr conjunto, t_player* player, int numpl); //Deixa o player pegar uma carta da mesa
 void resetar_jogada(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_player* player, t_player player_temp, int numpl); //Reseta o tabuleiro para o inicio da jogada caso o player faça uma jogada errada
 t_tabuleiro_ptr copia_reset(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_player* player, t_player* player_temp, int numpl); //Copia o tabuleiro e o player para que se possa resetar a jogada
 int checar(t_tabuleiro_ptr conjunto); //Checa se a jogada eh valida
