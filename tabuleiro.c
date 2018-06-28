@@ -90,7 +90,16 @@ void adicionar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 	printf("Qual carta deseja posicionar?\n");
 	scanf("%d", &card);
 
-	conjunto_temp->carta[n_coluna] = player[numpl].carta[card];
+	if (conjunto_temp->carta[n_coluna].nbr == '0')
+	{
+		conjunto_temp->carta[n_coluna] = player[numpl].carta[card];
+	}else
+	{
+		clear();
+		printf("Local ja ocupado!!\n");
+		return;
+	}
+
 	for (int i = card; i < player[numpl].cards; ++i)
 	{
 		player[numpl].carta[i] = player[numpl].carta[i + 1];
@@ -186,7 +195,11 @@ void resetar_jogada(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_p
 			conjunto = NULL;
 		}
 	}
-	player[numpl] = player_temp;
+	player[numpl].cards = player_temp.cards;
+	for (int i = 0; i < player_temp.cards; ++i)
+	{
+		player[numpl].carta[i] = player_temp.carta[i];
+	}
 }
 
 int checar(t_tabuleiro_ptr conjunto){

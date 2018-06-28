@@ -54,6 +54,7 @@ int main()
     int numpl = 0; //indica o numero do player que está jogando
     int finalizar = 0; //verifica se o player deseja finalizar a jogada
     int opt; //registra a escolha do player durante sua jogada
+    int valida; //verifica se a jogada foi valida
 
     criar_baralho(baralho);
     printf("                          ----------------------------\n");
@@ -86,6 +87,7 @@ int main()
         conjunto_temp = copia_reset(conjunto_temp, conjunto , player, &player_temp , numpl);
 
     	finalizar = 0;
+        valida = 1;
         while(!finalizar){
             printf("                               Mesa:\n");
             imprime_tabuleiro(conjunto, 1);
@@ -99,7 +101,8 @@ int main()
 	    	printf("\n\n                               Sua mao:\n");
 	    	imprime_mao(player, numpl);
 	    	printf("\n");
-	    	if(player->numjogada == 0){
+	    	if(player->numjogada == 0)
+            {
                 primeira = somar_mao(player , numpl);
             }
             if (opt == 1)
@@ -110,6 +113,7 @@ int main()
 	    		pegar_carta(conjunto, player, numpl);
 	    	}else if (opt == 3)
 	    	{
+                resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl);
 	    		comprar_carta(player, baralho, &cartas_baralho, numpl);
 	    	    finalizar = 1;
             }
@@ -119,14 +123,23 @@ int main()
                     if (aux < 30)
                     {
                         resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl); //primeira jogada nao somou 30 nas cartas
+                        clear();
+                        valida = 0;
                     }
-                    else{
+                }
+                if (opt == 0)
+                {
+                    valida = checar(conjunto);
+                    if (!valida)
+                    {
+                        resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl);
+                    }else
+                    {
                         player[numpl].numjogada++;
                     }
                 }
-            }		
+            }
         }
-
     	numpl = (numpl + 1)%player_nbr;
     }
     
