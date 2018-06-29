@@ -18,6 +18,18 @@ char binario_hexa(int n)
 	return caracter;
 }
 
+int hexa_binario(char c)
+{
+	int n;
+	if ((c >= '1')&&(c <= '9'))
+	{
+		n = '0' - c;
+	}else
+	{
+		n = 'A' - c + 1;
+	}
+}
+
 void criar_baralho(t_carta* carta)
 {
 	char cores[4] = CORES;
