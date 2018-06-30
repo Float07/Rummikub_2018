@@ -9,7 +9,42 @@
 
 int checa_sequencia(t_tabuleiro conjunto, int coringas)
 {
+	int space = 0; //quantos coringas ocupam o espaço entre duas cartas;
+	int flag = 0;
+	int c;
+	int k;
 
+	for(c = 0; (conjunto.carta[c].nbr == '0')||(conjunto.carta[c].nbr == '*'); c++){}
+
+	for(; (conjunto.carta[c].nbr != '0') && (c<13); c++)
+	{
+		while(conjunto.carta[c].nbr == '*')
+		{
+			c++;
+			space++;
+			if(c >= 13)
+			{
+				return 1;
+			}
+		}
+		if(conjunto.carta[c].nbr == '0')
+		{
+			break;
+		}
+		if((space+1)+hexa_binario(conjunto.carta[c-space-1].nbr) != hexa_binario(conjunto.carta[c].nbr))
+		{
+			return 0;
+		}
+		space = 0;
+	}
+	for(; c < 13; c++)
+	{
+		if(conjunto.carta[c].nbr != '0')
+		{
+			return 0;
+		}
+	}
+	return 1;
 }
 
 int checar_tipo(t_tabuleiro conjunto)
