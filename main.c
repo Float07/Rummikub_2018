@@ -112,7 +112,7 @@ int main()
 	    	printf("\n\n                               Sua mao:\n");
 	    	imprime_mao(player, numpl);
 	    	printf("\n");
-	    	if(player->numjogada == 0)
+	       	if(player->numjogada == 0)
             {
                 primeira = somar_mao(player , numpl);
             }

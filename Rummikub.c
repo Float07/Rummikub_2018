@@ -28,6 +28,7 @@ int hexa_binario(char c)
 	{
 		n = 'A' - c + 1;
 	}
+	return n;
 }
 
 void criar_baralho(t_carta* carta)
@@ -169,6 +170,11 @@ void distribuir_baralho_texto(int player_nbr,t_player* player, t_carta* baralho,
 	int k;
 	char temp;
 	FILE* input = fopen("baralho.txt", "rt");
+	if(input == NULL)
+	{
+		printf("Nao foi possivel abrir o arquivo!\n");
+		exit(0);
+	}
 	for (int i = 0; i < START_CARDS; ++i)
 	{
 		for (int c = 0; c < player_nbr; ++c)

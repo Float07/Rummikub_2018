@@ -7,12 +7,10 @@
 #define START_CARDS 14
 #define CORES {'!','@','#','$'}
 
-int checa_sequencia(t_tabuleiro conjunto, int coringas)
+int checa_sequencia(t_tabuleiro conjunto)
 {
 	int space = 0; //quantos coringas ocupam o espaço entre duas cartas;
-	int flag = 0;
 	int c;
-	int k;
 
 	for(c = 0; (conjunto.carta[c].nbr == '0')||(conjunto.carta[c].nbr == '*'); c++){}
 
@@ -47,11 +45,54 @@ int checa_sequencia(t_tabuleiro conjunto, int coringas)
 	return 1;
 }
 
+int checar_trinca_quadra(t_tabuleiro conjunto, int conjunto_cartas)
+{
+	int pos1; //posicao da primeira carta
+	int pos2; //posicao da ultima carta
+	int c;
+	for (c = 0; c < 13; ++c)
+	{
+		if(conjunto.carta[c].nbr != '0')
+		{
+			pos1 = c;
+			break;
+		}
+	}
+	for (c = 0; c < 13; ++c)
+	{
+		if((c == 12)||(conjunto.carta[c+1].nbr == '0'))
+		{
+			pos2 = c;
+			break;
+		}
+	}
+	if(((pos2 - pos1) + 1) != conjunto_cartas)
+	{
+		return 0;
+	}
+	for (int i = pos1; i <= pos2; ++i)
+	{
+		for (int j = pos1; j <= pos2; ++j)
+		{
+			if(j != i)
+			{
+				if(conjunto.carta[j].nbr != '*' && conjunto.carta[i].nbr != '*')
+				{
+					if ((conjunto.carta[i].nbr != conjunto.carta[j].nbr)||(conjunto.carta[i].cor == conjunto.carta[j].cor))
+					{
+						return 0;
+					}
+				}
+			}
+		}
+	}
+	return 1;
+}
+
 int checar_tipo(t_tabuleiro conjunto)
 {
 	int c = 0;
 	int k;
-	int space = 0; //quantos coringas ocupam o espaço entre duas cartas;
 	while((conjunto.carta[c].nbr == '*' || conjunto.carta[c].nbr == '0') && c < 13)
 	{
 		c++;
@@ -74,7 +115,7 @@ int checar_tipo(t_tabuleiro conjunto)
 int checar(t_tabuleiro_ptr conjunto){
 	int conjunto_cartas;
 	int coringas;
-	int flag;
+	int flag = 0;
 	int valida; //verifica se a jogada é valida
 	while(conjunto->next != NULL)
 	{
@@ -97,26 +138,30 @@ int checar(t_tabuleiro_ptr conjunto){
 		{
 			return 0;
 		}
-		if (conjunto_cartas == 3 && coringas)
+		if (conjunto_cartas == 3 && coringas == 2)
 		{
 			flag = 1;
 		}
-		tipo = checar_tipo((*conjunto));
-		if (tipo == 1)
+		if(!flag)
 		{
-			valida = checa_sequencia((*conjunto), coringas)
-			if (!valida)
+			tipo = checar_tipo((*conjunto));
+			if (tipo == 1)
 			{
-				return 0;
-			}
-		}else if (tipo == 2)
-		{
-			valida =
-			if (!valida)
+				valida = checa_sequencia((*conjunto));
+				if (!valida)
+				{
+					return 0;
+				}
+			}else if (tipo == 2)
 			{
-				return 0;
+				valida = checar_trinca_quadra((*conjunto), conjunto_cartas);
+				if (!valida)
+				{
+					return 0;
+				}
 			}
 		}
+		flag = 0;
 		conjunto = conjunto->next;
 	}
 	return 1;
