@@ -9,10 +9,12 @@
 
 int checa_sequencia(t_tabuleiro conjunto)
 {
-	int space = 0; //quantos coringas ocupam o espaço entre duas cartas;
+	int space = 0; //quantos coringas ocupam o espaço entre duas cartas.
+	int primeira; //a primeira posição sendo ocupada por uma carta.
 	int c;
 
 	for(c = 0; (conjunto.carta[c].nbr == '0')||(conjunto.carta[c].nbr == '*'); c++){}
+	primeira = c;
 
 	for(; (conjunto.carta[c].nbr != '0') && (c<13); c++)
 	{
@@ -29,7 +31,7 @@ int checa_sequencia(t_tabuleiro conjunto)
 		{
 			break;
 		}
-		if((space+1)+hexa_binario(conjunto.carta[c-space-1].nbr) != hexa_binario(conjunto.carta[c].nbr))
+		if((space+1)+hexa_binario(conjunto.carta[c-space-1].nbr) != hexa_binario(conjunto.carta[c].nbr) && c != primeira)
 		{
 			return 0;
 		}

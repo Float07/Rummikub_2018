@@ -23,10 +23,10 @@ int hexa_binario(char c)
 	int n;
 	if ((c >= '1')&&(c <= '9'))
 	{
-		n = '0' - c;
+		n = c - '0';
 	}else
 	{
-		n = 'A' - c + 1;
+		n = c - 'A' + 1;
 	}
 	return n;
 }
