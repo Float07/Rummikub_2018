@@ -10,11 +10,22 @@
 int checa_sequencia(t_tabuleiro conjunto)
 {
 	int space = 0; //quantos coringas ocupam o espaço entre duas cartas.
+	int coringas_antes = 0; //Conta quantos coringas antes de iniciar a sequencia
 	int primeira; //a primeira posição sendo ocupada por uma carta.
 	int c;
 
-	for(c = 0; (conjunto.carta[c].nbr == '0')||(conjunto.carta[c].nbr == '*'); c++){}
+	for(c = 0; (conjunto.carta[c].nbr == '0')||(conjunto.carta[c].nbr == '*'); c++){
+		if (conjunto.carta[c].nbr == '*')
+		{
+			coringas_antes++;
+		}
+	}
 	primeira = c;
+
+	if (hexa_binario(conjunto.carta[primeira].nbr) <= coringas_antes)
+	{
+		return 0;
+	}
 
 	for(; (conjunto.carta[c].nbr != '0') && (c<13); c++)
 	{
@@ -50,8 +61,12 @@ int checa_sequencia(t_tabuleiro conjunto)
 int checar_trinca_quadra(t_tabuleiro conjunto, int conjunto_cartas)
 {
 	int pos1; //posicao da primeira carta
-	int pos2; //posicao da ultima carta
+	int pos2;//posicao da ultima carta
 	int c;
+	if(conjunto_cartas > 4)
+	{
+		return 0;
+	}
 	for (c = 0; c < 13; ++c)
 	{
 		if(conjunto.carta[c].nbr != '0')
@@ -60,7 +75,7 @@ int checar_trinca_quadra(t_tabuleiro conjunto, int conjunto_cartas)
 			break;
 		}
 	}
-	for (c = 0; c < 13; ++c)
+	for ( ; c < 13; ++c)
 	{
 		if((c == 12)||(conjunto.carta[c+1].nbr == '0'))
 		{
@@ -142,7 +157,7 @@ int checar(t_tabuleiro_ptr conjunto){
 		}
 		if (conjunto_cartas == 3 && coringas == 2)
 		{
-			flag = 1;
+			return 1;
 		}
 		if(!flag)
 		{
