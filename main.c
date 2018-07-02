@@ -134,13 +134,17 @@ int main()
             }
             else if(opt == 0){
                 if(player[numpl].numjogada == 0){
-                    int aux = primeira-somar_mao(player, numpl);
-                    if (aux < 0)
+                    if ((primeira-somar_mao(player, numpl)) < 30)
                     {
                         resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl); //primeira jogada nao somou 30 nas cartas
                         clear();
                         valida = 0;
                     }
+                }else if ((primeira-somar_mao(player, numpl)) <= 0)
+                {
+                    resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl); //primeira jogada nao somou 30 nas cartas
+                    clear();
+                    valida = 0;
                 }
                 if (opt == 0)
                 {
