@@ -10,7 +10,6 @@
 int main()
 {	
     clear();
-    int seguintes;
     int primeira;
     t_player* player;
     t_player player_temp;
@@ -116,9 +115,6 @@ int main()
 	       	if(player->numjogada == 0)
             {
                 primeira = somar_mao(player , numpl);
-            }
-            else{
-                seguintes = player[numpl].cards;
             }
             if (opt == 1)
 	    	{
