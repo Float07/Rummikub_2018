@@ -62,6 +62,7 @@ void imprime_mao(t_player* player, int numpl)
 void adicionar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 {
 	t_tabuleiro_ptr conjunto_temp = conjunto;
+	int i = 0;
 	int linha;
 	char coluna;
 	int n_coluna;
@@ -111,7 +112,7 @@ void adicionar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 		conjunto_temp->next = (t_tabuleiro_ptr)malloc(sizeof(t_tabuleiro));
 		conjunto_temp = conjunto_temp->next;
 		conjunto_temp->next = NULL;
-		for (int i = 0; i < 13; ++i)
+		for (i = 0; i < 13; ++i)
 		{
 			conjunto_temp->carta[i].nbr = '0';
 		}
@@ -119,44 +120,119 @@ void adicionar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 	clear();
 }
 
-void pegar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
+void mudar_pos(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 {
+	int cont = 1;
+	int flag3 = 0;
+	int flag = 0;
+	int flag2 = 0;
+	int bandeira = 0;
+	t_carta* aux;
 	int linha;
+	int linha2;
 	char coluna;
+	char coluna2;
 	int n_coluna;
-	t_tabuleiro_ptr conjunto_temp = conjunto;
-
-	printf("Que carta deseja adicionar ao seu baralho?\n");
-	printf("Linha: ");
-	scanf("%d", &linha);
-	printf("Coluna: ");
-	scanf(" %c", &coluna);
-
-	if (coluna >= 'a' && coluna <= 'm')
+	int n_coluna2;
+	if (conjunto->next == NULL)
 	{
-		n_coluna = coluna - 'a';
-	}else if (coluna >= 'A' && coluna <= 'M')
-	{
+		conjunto->next = (t_tabuleiro_ptr)malloc(sizeof(t_tabuleiro));
+		for (int i = 0; i < 13; ++i)
+		{
+			conjunto->carta[i].nbr = '0';
+		}
+	}
+	while(flag3 == 0){
+		while(flag2 == 0){
+			printf("Que carta deseja mudar de posicao?\n");
+			printf("Linha: ");
+			scanf("%d", &linha);
+			for (int i = 0; conjunto[i].next == NULL  ; ++i)
+			{
+				cont++;
+			}
+			if (linha > cont)
+			{
+				printf("Nao existe essa linha!\n");
+				flag2 = 0;
+			}
+			else{
+				flag2 = 1; 
+			}
+		}
+		
+		printf("Coluna: ");
+		scanf(" %c", &coluna);
+
+		if (coluna >= 'a' && coluna <= 'm')
+		{
+			n_coluna = coluna - 'a';
+		}else if (coluna >= 'A' && coluna <= 'M')
+		{
 		n_coluna = coluna - 'A';
-	}else{
-		printf("Coluna invalida!!!\n");
-		exit(0);
+		}else{
+			printf("Coluna invalida!!!\n");
+			exit(0);
+		}
+		for (int n = 0; n < 13; ++n)
+		{
+			if(n == n_coluna){
+				aux->nbr = conjunto[linha-1].carta[n].nbr;
+				aux->cor = conjunto[linha-1].carta[n].cor;
+			}
+		}
+		if(conjunto[linha-1].carta[n_coluna].nbr == '0'){
+			printf("Nao ha carta nessa posicao!\n");
+			flag3 = 0;
+			flag2 = 0;
+		}
+		else{
+			flag3 = 1;
+			flag2 = 1;
+		}
 	}
-
-	for (int i = 0; i < linha - 1; ++i)
-	{
-		conjunto_temp = conjunto_temp->next;
+	while(bandeira == 0 || flag ==0){
+		printf("para qual posicao vc deseja mudar a carta?\n");
+		while(bandeira == 0){
+			printf("Linha:");
+			scanf("%d", &linha2);
+			if(conjunto[linha2-1].next == NULL){
+				bandeira = 0; 
+				printf("Essa linha não existe!");
+			}
+			else{
+				bandeira = 1;
+			}
+		}
+		while(flag == 0){
+			printf("Coluna:");
+			scanf(" %c", &coluna2);
+			if (coluna2 >= 'a' && coluna2 <= 'm')
+			{
+				n_coluna2 = coluna2 - 'a';
+			}else if (coluna2 >= 'A' && coluna2 <= 'M')
+			{
+				n_coluna2 = coluna2 - 'A';
+			}else{
+			printf("Coluna invalida!!!\n");
+			exit(0);
+			}
+			printf("%c\n", conjunto[linha2-1].carta[n_coluna2].nbr );
+			if(conjunto[linha2-1].carta[n_coluna2].nbr != '0'){
+				printf("Ja ha uma carta nessa posicao!\n");
+				flag = 0;
+				bandeira = 0;
+			}
+			else{
+			flag=1;
+			}
+		}
 	}
-
+	conjunto[linha2-1].carta[n_coluna2].nbr = aux->nbr;
+	conjunto[linha2-1].carta[n_coluna2].cor = aux->cor; 
+	conjunto[linha-1].carta[n_coluna].cor='0';
+	conjunto[linha-1].carta[n_coluna].nbr='0';
 	clear();
-	if (conjunto_temp->carta[n_coluna].nbr == '0')
-	{
-		printf("Nao existe carta aqui!");
-	}else{
-		player[numpl].carta[player[numpl].cards] = conjunto_temp->carta[n_coluna];
-		player[numpl].cards++;
-		conjunto_temp->carta[n_coluna].nbr = '0';
-	}
 }
 
 void resetar_jogada(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_player* player, t_player player_temp, int numpl)

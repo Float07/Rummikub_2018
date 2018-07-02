@@ -10,6 +10,7 @@
 int main()
 {	
     clear();
+    int seguintes;
     int primeira;
     t_player* player;
     t_player player_temp;
@@ -116,12 +117,15 @@ int main()
             {
                 primeira = somar_mao(player , numpl);
             }
+            else{
+                seguintes = player[numpl].cards;
+            }
             if (opt == 1)
 	    	{
 	    		adicionar_carta(conjunto, player, numpl);
 	    	}else if(opt == 2)
 	    	{
-	    		pegar_carta(conjunto, player, numpl);
+	    		mudar_pos(conjunto, player, numpl);
 	    	}else if (opt == 3)
 	    	{
                 resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl);
@@ -150,7 +154,17 @@ int main()
                         finalizar = 1;
                     }
                 }
-            }
+                else{
+                    int aux2 = seguintes-player[numpl].cards;
+                    if (aux2 >=  0)
+                    {
+                        resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl);
+                    }
+
+                }
+
+
+            }		
         }
     	numpl = (numpl + 1)%player_nbr;
     }
