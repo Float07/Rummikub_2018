@@ -116,6 +116,7 @@ int main()
 	       	if(player->numjogada == 0)
             {
                 primeira = somar_mao(player , numpl);
+                printf("%d\n", primeira);
             }
             else{
                 seguintes = player[numpl].cards;

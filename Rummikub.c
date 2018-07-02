@@ -26,7 +26,7 @@ int hexa_binario(char c)
 		n = c - '0';
 	}else
 	{
-		n = c - 'A' + 1;
+		n = c - 'A' + 10;
 	}
 	return n;
 }
