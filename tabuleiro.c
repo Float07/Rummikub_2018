@@ -387,8 +387,9 @@ int somar_mao(t_player* player, int numpl){
 	return cont;
 }
 
-void fim_jogo(int player_nbr , t_player* player){
+void fim_jogo(int player_nbr , t_player* player, t_tabuleiro_ptr conjunto){
 	int total = 0;
+	int vencedor = 0;
 	int* cont;
 	int* pontos;
 	cont = (int*) malloc ((player_nbr)*sizeof(int));
@@ -410,7 +411,21 @@ void fim_jogo(int player_nbr , t_player* player){
 			pontos[i] = -cont[i];
 		}
 	}
+	for (int i = 0; i < player_nbr; ++i)
+	{
+		if (pontos[i] > pontos[vencedor])
+		{
+			vencedor = i;
+		}
+	}
+	clear();
+	for (int i = 0; i < player_nbr; ++i)
+	{
+		printf("Jogador %d: %d\n", i+1, pontos[i]);
+	}
+	printf("Parabens jogador %d, voce venceu!\n", vencedor + 1);
 	free(cont);
 	free(pontos);
+	liberar_coluna(conjunto);
 	exit(0);
 }

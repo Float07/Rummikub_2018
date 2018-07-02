@@ -100,7 +100,7 @@ int main()
     {
         distribuir_baralho_texto(player_nbr, player, baralho, &cartas_baralho);
     }
-    
+
     while(!victory)
     {
         clear();
@@ -132,13 +132,14 @@ int main()
 	    	}else if(opt == 2)
 	    	{
 	    		mudar_pos(conjunto, player, numpl);
+                clear();
 	    	}else if (opt == 3)
 	    	{
                 resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl);
 	    		comprar_carta(player, baralho, &cartas_baralho, numpl);
                 if (!cartas_baralho)
                 {
-                    fim_jogo(player_nbr, player);
+                    fim_jogo(player_nbr, player, conjunto);
                 }
 	    	    finalizar = 1;
             }
@@ -158,7 +159,7 @@ int main()
                 if(valida){
                     if(!player[numpl].cards)
                     {
-                        fim_jogo(player_nbr, player);
+                        fim_jogo(player_nbr, player, conjunto);
                     }
                     player[numpl].numjogada++;
                     finalizar = 1;

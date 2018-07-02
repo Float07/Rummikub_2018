@@ -202,3 +202,14 @@ void distribuir_baralho_texto(int player_nbr,t_player* player, t_carta* baralho,
 		player[i].cards = START_CARDS;
 	}
 }
+
+void liberar_coluna(t_tabuleiro_ptr conjunto)
+{
+	t_tabuleiro_ptr conjunto_aux = conjunto;
+	while(conjunto != NULL)
+	{
+		conjunto_aux = conjunto_aux->next;
+		free(conjunto);
+		conjunto = conjunto_aux;
+	}
+}

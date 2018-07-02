@@ -33,8 +33,9 @@ void resetar_jogada(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_p
 t_tabuleiro_ptr copia_reset(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_player* player, t_player* player_temp, int numpl); //Copia o tabuleiro e o player para que se possa resetar a jogada
 int checar(t_tabuleiro_ptr conjunto); //Checa se a jogada eh valida
 int somar_mao(t_player* player, int numpl); // Soma a mao do jogador
-void fim_jogo(int player_nbr , t_player* player); // Calcula os pontos no final do jogo
+void fim_jogo(int player_nbr , t_player* player, t_tabuleiro_ptr conjunto); // Calcula os pontos no final do jogo
 void distribuir_baralho_texto(int player_nbr,t_player* player, t_carta* baralho, int* cartas_baralho); //distribui baralho usando baralho.txt
 int hexa_binario(char c); //transforma hexa em binario
+void liberar_coluna(t_tabuleiro_ptr conjunto); //Libera espaço ocupado pelo tabuleiro
 
 #endif // RUMMIKUB_H_INCLUDED
