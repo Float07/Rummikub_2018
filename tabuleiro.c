@@ -286,18 +286,16 @@ int somar_mao(t_player* player, int numpl){
 		if (player[numpl].carta[i].nbr == '*')
 		{
 			cont += 20;
-			printf("%d\n", cont);
 		}else
 		{
 			cont += hexa_binario(player[numpl].carta[i].nbr);
-			printf("%d\n", cont);
 		}
 	}
 	return cont;
 }
 
-int* fim_jogo(int player_nbr , t_player* player ){
-	int total;
+void fim_jogo(int player_nbr , t_player* player){
+	int total = 0;
 	int* cont;
 	int* pontos;
 	cont = (int*) malloc ((player_nbr)*sizeof(int));
@@ -309,15 +307,16 @@ int* fim_jogo(int player_nbr , t_player* player ){
 	for (int i = 0; i < player_nbr; ++i)
 	{
 		if(somar_mao(player , i)==0){
-			for (int i = 0; i < player_nbr; ++i)
+			for (i = 0; i < player_nbr; ++i)
 			{
-				total= total + cont[i];
+				total = total + cont[i];
 			}
-			pontos[i]= total;
+			pontos[i] = total;
 		}
 		else{
-			pontos[i]=-cont[i];
+			pontos[i] = -cont[i];
 		}
 	}
-	return pontos;
+	free(cont);
+	free(pontos);
 }
