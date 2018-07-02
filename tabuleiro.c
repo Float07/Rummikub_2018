@@ -127,7 +127,7 @@ void mudar_pos(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 	int flag = 0;
 	int flag2 = 0;
 	int bandeira = 0;
-	t_carta* aux;
+	t_carta* aux = (t_carta*)malloc(sizeof(t_carta));
 	int linha;
 	int linha2;
 	char coluna;
@@ -232,6 +232,7 @@ void mudar_pos(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 	conjunto[linha2-1].carta[n_coluna2].cor = aux->cor; 
 	conjunto[linha-1].carta[n_coluna].cor='0';
 	conjunto[linha-1].carta[n_coluna].nbr='0';
+	free(aux);
 	clear();
 }
 
