@@ -122,52 +122,44 @@ void adicionar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 
 void mudar_pos(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 {
-	int cont = 1;
-	int flag3 = 0;
-	int flag = 0;
-	int flag2 = 0;
-	int bandeira = 0;
-	t_carta* aux = (t_carta*)malloc(sizeof(t_carta));
+	t_tabuleiro_ptr conjunto_aux;
 	int linha;
-	int linha2;
 	char coluna;
-	char coluna2;
 	int n_coluna;
-	int n_coluna2;
-	if (conjunto->next == NULL)
+	int flag = 0;
+	t_carta carta_aux;
+
+	printf("Digite a posicao da carta que deseja mudar\n");
+	while(!flag)
 	{
-		conjunto->next = (t_tabuleiro_ptr)malloc(sizeof(t_tabuleiro));
-		for (int i = 0; i < 13; ++i)
+		int n = 0;
+		printf("Linha: ");
+		scanf("%d", &linha);
+		for (conjunto_aux = conjunto; conjunto_aux != NULL; conjunto_aux = conjunto_aux->next)
 		{
-			conjunto->carta[i].nbr = '0';
+			n++;
+		}
+		if (linha > n)
+		{
+			printf("Linha inexistentes, digite novamente\n");
+		}else
+		{
+			flag = 1;
 		}
 	}
-	while(flag3 == 0){
-		while(flag2 == 0){
-			printf("Que carta deseja mudar de posicao?\n");
-			printf("Linha: ");
-			scanf("%d", &linha);
-			for (int i = 0; conjunto[i].next == NULL  ; ++i)
-			{
-				cont++;
-			}
-			if (linha > cont)
-			{
-				printf("Nao existe essa linha!\n");
-				flag2 = 0;
-			}
-			else{
-				flag2 = 1; 
-			}
-		}
-		
+	flag = 0;
+	while(!flag)
+	{
 		printf("Coluna: ");
 		scanf(" %c", &coluna);
-
-		if (coluna >= 'a' && coluna <= 'm')
+		if ((coluna >= 'A')&&(coluna <= 'M'))
+		{
+			n_coluna = coluna - 'A';
+		}else
 		{
 			n_coluna = coluna - 'a';
-		}else if (coluna >= 'A' && coluna <= 'M')
+		}
+		if ((n_coluna <= 12)&&(n_coluna >= 0))
 		{
 			flag = 1;
 		}else
@@ -193,19 +185,14 @@ void mudar_pos(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 		scanf("%d", &linha);
 		for (conjunto_aux = conjunto; conjunto_aux != NULL; conjunto_aux = conjunto_aux->next)
 		{
-			if(n == n_coluna){
-				aux->nbr = conjunto[linha-1].carta[n].nbr;
-				aux->cor = conjunto[linha-1].carta[n].cor;
-			}
+			n++;
 		}
-		if(conjunto[linha-1].carta[n_coluna].nbr == '0'){
-			printf("Nao ha carta nessa posicao!\n");
-			flag3 = 0;
-			flag2 = 0;
-		}
-		else{
-			flag3 = 1;
-			flag2 = 1;
+		if (linha > n)
+		{
+			printf("Linha inexistente\n");
+		}else
+		{
+			flag = 1;
 		}
 	}
 	flag = 0;
@@ -298,13 +285,19 @@ int somar_mao(t_player* player, int numpl){
 	int cont = 0;
 	for (int i = 0; i < player[numpl].cards; i++)
 	{
-		cont =  (cont) +(int) ( player[numpl].carta[i].nbr - '0') ;
+		if (player[numpl].carta[i].nbr == '*')
+		{
+			cont += 20;
+		}else
+		{
+			cont += hexa_binario(player[numpl].carta[i].nbr);
+		}
 	}
 	return cont;
 }
 
-int* fim_jogo(int player_nbr , t_player* player ){
-	int total;
+void fim_jogo(int player_nbr , t_player* player){
+	int total = 0;
 	int* cont;
 	int* pontos;
 	cont = (int*) malloc ((player_nbr)*sizeof(int));
@@ -316,15 +309,17 @@ int* fim_jogo(int player_nbr , t_player* player ){
 	for (int i = 0; i < player_nbr; ++i)
 	{
 		if(somar_mao(player , i)==0){
-			for (int i = 0; i < player_nbr; ++i)
+			for (i = 0; i < player_nbr; ++i)
 			{
-				total= total + cont[i];
+				total = total + cont[i];
 			}
-			pontos[i]= total;
+			pontos[i] = total;
 		}
 		else{
-			pontos[i]=-cont[i];
+			pontos[i] = -cont[i];
 		}
 	}
-	return pontos;
+	free(cont);
+	free(pontos);
+	exit(0);
 }
