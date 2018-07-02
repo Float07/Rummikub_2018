@@ -137,21 +137,18 @@ int main()
 	    	    finalizar = 1;
             }
             else if(opt == 0){
+                valida = checar(conjunto);
                 if(player[numpl].numjogada == 0){
                     if ((primeira-somar_mao(player, numpl)) < 30)
                     {
                         resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl); //primeira jogada nao somou 30 nas cartas
                         clear();
-                        valida = 0;
                     }
                 }else if ((primeira-somar_mao(player, numpl)) <= 0)
                 {
                     resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl); //primeira jogada nao somou 30 nas cartas
                     clear();
-                    valida = 0;
-                }
-                valida = checar(conjunto);
-                if (!valida)
+                }else if (!valida)
                 {
                     resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl);
                 }else
