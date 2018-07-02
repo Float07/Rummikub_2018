@@ -62,14 +62,29 @@ void imprime_mao(t_player* player, int numpl)
 void adicionar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 {
 	t_tabuleiro_ptr conjunto_temp = conjunto;
+	t_tabuleiro_ptr conjunto_temp2 = conjunto;
+	int flag = 0; 
+	int n = 0;
 	int i = 0;
 	int linha;
 	char coluna;
 	int n_coluna;
 	int card; //A carta que o player escolhe adicionar
 	printf("Escolha a posicao desejada\n");
-	printf("Linha: ");
-	scanf("%d", &linha);
+	while(flag == 0){
+		printf("Linha: ");
+		scanf("%d", &linha);
+		for(conjunto_temp2 = conjunto ; conjunto_temp2 != NULL ; conjunto_temp2 = conjunto_temp2->next){
+			n++;
+		}
+		if(linha > n  || linha <= 0){
+			printf("Nao existe essa linha!!\n");
+			flag = 0;
+		}
+		else{
+			flag = 1;
+		} 
+	}
 	printf("Coluna: ");
 	scanf(" %c", &coluna);
 
@@ -139,7 +154,7 @@ void mudar_pos(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 		{
 			n++;
 		}
-		if (linha > n)
+		if (linha > n || linha <= 0)
 		{
 			printf("Linha inexistentes, digite novamente\n");
 		}else
@@ -162,11 +177,14 @@ void mudar_pos(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 		if ((n_coluna <= 12)&&(n_coluna >= 0))
 		{
 			flag = 1;
+		}else
+		{
+			printf("Coluna invalida!\n");
 		}
 	}
 	flag = 0;
 	conjunto_aux = conjunto;
-	for (int i = 0; i < linha; ++i)
+	for (int i = 1; i < linha; ++i)
 	{
 		conjunto_aux = conjunto_aux->next;
 	}
@@ -174,14 +192,13 @@ void mudar_pos(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 	carta_aux.nbr = conjunto_aux->carta[n_coluna].nbr;
 	conjunto_aux->carta[n_coluna].nbr = '0';
 
-	conjunto_aux = conjunto;
 	printf("Onde deseja posicionar essa carta?\n");
 	printf("Linha: ");
 	while(!flag)
-	{	
+	{
 		int n = 0;
 		scanf("%d", &linha);
-		for (int i = 0; conjunto_aux != NULL; ++i)
+		for (conjunto_aux = conjunto; conjunto_aux != NULL; conjunto_aux = conjunto_aux->next)
 		{
 			n++;
 		}
@@ -198,7 +215,7 @@ void mudar_pos(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 
 	printf("Coluna: ");
 	while(!flag)
-	{	
+	{
 		scanf(" %c", &coluna);
 		if ((coluna >= 'A')&&(coluna <= 'M'))
 		{
@@ -210,8 +227,30 @@ void mudar_pos(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 		if ((n_coluna <= 12)&&(n_coluna >= 0))
 		{
 			flag = 1;
+		}else
+		{
+			printf("Coluna invalida!!\n");
 		}
 	}
+	flag = 0;
+	conjunto_aux = conjunto;
+
+	for (int i = 1; i < linha; ++i)
+	{
+		conjunto_aux = conjunto_aux->next;
+		if (conjunto_aux->next == NULL)
+		{
+			conjunto_aux->next = (t_tabuleiro_ptr)malloc(sizeof(t_tabuleiro));
+			(conjunto_aux->next)->next = NULL;
+			for (int j = 0; j < 13; ++j)
+			{
+				(conjunto_aux->next)->carta[j].nbr = '0';
+			}
+		}
+	}
+
+	conjunto_aux->carta[n_coluna].nbr = carta_aux.nbr;
+	conjunto_aux->carta[n_coluna].cor = carta_aux.cor;
 }
 
 void resetar_jogada(t_tabuleiro_ptr conjunto_temp, t_tabuleiro_ptr conjunto, t_player* player, t_player player_temp, int numpl)
