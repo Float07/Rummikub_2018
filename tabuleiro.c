@@ -62,13 +62,29 @@ void imprime_mao(t_player* player, int numpl)
 void adicionar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 {
 	t_tabuleiro_ptr conjunto_temp = conjunto;
+	t_tabuleiro_ptr conjunto_temp2 = conjunto;
+	int flag = 0; 
+	int n = 0;
+	int i = 0;
 	int linha;
 	char coluna;
 	int n_coluna;
 	int card; //A carta que o player escolhe adicionar
 	printf("Escolha a posicao desejada\n");
-	printf("Linha: ");
-	scanf("%d", &linha);
+	while(flag == 0){
+		printf("Linha: ");
+		scanf("%d", &linha);
+		for(conjunto_temp2 = conjunto ; conjunto_temp2 != NULL ; conjunto_temp2 = conjunto_temp2->next){
+			n++;
+		}
+		if(linha > n  || linha <= 0){
+			printf("Nao existe essa linha!!\n");
+			flag = 0;
+		}
+		else{
+			flag = 1;
+		} 
+	}
 	printf("Coluna: ");
 	scanf(" %c", &coluna);
 
@@ -126,13 +142,20 @@ void pegar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 
 	if (coluna >= 'a' && coluna <= 'm')
 	{
-		n_coluna = coluna - 'a';
-	}else if (coluna >= 'A' && coluna <= 'M')
-	{
-		n_coluna = coluna - 'A';
-	}else{
-		printf("Coluna invalida!!!\n");
-		exit(0);
+		int n = 0;
+		printf("Linha: ");
+		scanf("%d", &linha);
+		for (conjunto_aux = conjunto; conjunto_aux != NULL; conjunto_aux = conjunto_aux->next)
+		{
+			n++;
+		}
+		if (linha > n || linha <= 0)
+		{
+			printf("Linha inexistentes, digite novamente\n");
+		}else
+		{
+			flag = 1;
+		}
 	}
 
 	for (int i = 0; i < linha - 1; ++i)

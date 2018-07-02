@@ -38,6 +38,7 @@ int main()
     /*cria e zera o conjunto de cartas*/
 
     int player_nbr;
+    int band = 0; 
     int flag = 0;
     int cartas_baralho = (CARTA_NBR + CORINGA_NBR);
     int victory = 0; //verifica se alguem venceu
@@ -68,7 +69,28 @@ int main()
     {
         player[i].numjogada=0;
     }
-    distribuir_baralho(player_nbr, player, baralho, &cartas_baralho);
+    player_temp.carta = (t_carta*)malloc((CARTA_NBR+CORINGA_NBR)*sizeof(t_carta));
+
+    while (band == 0){
+        printf("Como deseja distribuir o baralho?(1-aleatorio/2-Arquivo de texto)\n");
+        scanf("%d", &opt);
+        if(opt < 1 || opt > 2){
+          printf("Comando invalido!!\n");
+          band = 0;  
+        }
+        else{
+            band = 1;
+        }
+    }
+    if (opt == 1)
+    {
+        distribuir_baralho(player_nbr, player, baralho, &cartas_baralho);   
+    }else
+    {
+        distribuir_baralho_texto(player_nbr, player, baralho, &cartas_baralho);
+    }
+    clear();
+    
     while(!victory)
     {
     	printf("vez do jogador %d!\n", numpl + 1);
@@ -80,7 +102,7 @@ int main()
             imprime_tabuleiro(conjunto, 1);
 	    	printf("\n\n                               Sua mao:\n");
 	    	imprime_mao(player, numpl);
-	    	printf("\n\n                 O que deseja fazer?\n                 1-Adicionar uma carta\n                 2-Pegar uma carta\n                 3-Comprar uma carta\n\n                 0-Finalizar jogada\n");
+	    	printf("\n\n                 O que deseja fazer?\n                 1-Adicionar uma carta\n                 2-Trocar carta de posicao\n                 3-Comprar uma carta\n\n                 0-Finalizar jogada\n");
 	    	scanf("%d", &opt);
 	    	clear();
 	    	printf("                               Mesa:\n");
@@ -117,6 +139,10 @@ int main()
                     }
                 }
             }		
+            else{
+                clear();
+                printf("Comando invalido!!");
+            }
         }
 
     	numpl = (numpl + 1)%player_nbr;
