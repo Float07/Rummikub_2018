@@ -100,10 +100,10 @@ int main()
     {
         distribuir_baralho_texto(player_nbr, player, baralho, &cartas_baralho);
     }
-    clear();
     
     while(!victory)
     {
+        clear();
     	printf("vez do jogador %d!\n", numpl + 1);
         conjunto_temp = copia_reset(conjunto_temp, conjunto , player, &player_temp , numpl);
 
@@ -143,28 +143,29 @@ int main()
 	    	    finalizar = 1;
             }
             else if(opt == 0){
+                clear();
                 valida = checar(conjunto);
                 if(player[numpl].numjogada == 0){
                     if ((primeira-somar_mao(player, numpl)) < 30)
                     {
-                        resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl); //primeira jogada nao somou 30 nas cartas
-                        clear();
+                        printf("Sua primeira jogada deve pontuar, no minimo, 30 pontos!\n");
+                        valida = 0;
                     }
                 }else if ((primeira-somar_mao(player, numpl)) <= 0)
                 {
-                    resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl); //primeira jogada nao somou 30 nas cartas
-                    clear();
-                }else if (!valida)
-                {
-                    resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl);
-                }else
-                {
+                    valida = 0;
+                }
+                if(valida){
                     if(!player[numpl].cards)
                     {
                         fim_jogo(player_nbr, player);
                     }
                     player[numpl].numjogada++;
                     finalizar = 1;
+                }else
+                {
+                    resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl);
+                    printf("JOGADA INVALIDA!\n");
                 }
             }		
             else{

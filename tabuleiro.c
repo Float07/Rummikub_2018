@@ -83,6 +83,20 @@ void adicionar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 		}
 		else{
 			flag = 1;
+		}
+		if(flag)
+		{
+			t_tabuleiro_ptr conjunto_aux;
+			int j = 0;
+			for (conjunto_aux = conjunto; conjunto_aux != NULL; conjunto_aux = conjunto_aux->next)
+			{
+				j++;
+			}
+			if(linha > j)
+			{
+				flag = 0;
+				printf("Nao existe essa linha!!\n");
+			}
 		} 
 	}
 	printf("Coluna: ");
@@ -96,7 +110,7 @@ void adicionar_carta(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 		n_coluna = coluna - 'a';
 	}else{
 		printf("Coluna invalida!!!!");
-		exit(0);
+		return;
 	}
 	for (int i = 0; i < linha - 1; ++i)
 	{
@@ -154,15 +168,36 @@ void mudar_pos(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 		{
 			n++;
 		}
-		if (linha > n || linha <= 0)
+		if (linha >= n || linha <= 0)
 		{
-			printf("Linha inexistentes, digite novamente\n");
+			printf("Linha invalida, digite novamente\n");
 		}else
 		{
 			flag = 1;
 		}
+		if (flag)
+		{
+			flag = 0;
+			conjunto_aux = conjunto;
+			for (int i = 1; i < linha; ++i)
+			{
+				conjunto_aux = conjunto_aux->next;
+			}
+			for (int i = 0; i < 13; ++i)
+			{
+				if (conjunto_aux->carta[i].nbr != '0')
+				{
+					flag = 1;
+				}
+			}
+			if (!flag)
+			{
+				printf("Nao existem cartas nessa coluna!!\n");
+			}
+		}
 	}
 	flag = 0;
+	conjunto_aux = conjunto;
 	while(!flag)
 	{
 		printf("Coluna: ");
@@ -180,6 +215,15 @@ void mudar_pos(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 		}else
 		{
 			printf("Coluna invalida!\n");
+		}
+		for (int i = 1; i < linha; ++i)
+		{
+			conjunto_aux = conjunto_aux->next;
+		}
+		if (conjunto_aux->carta[n_coluna].nbr == '0')
+		{
+			flag = 0;
+			printf("Nao existe carta aqui!!\n");
 		}
 	}
 	flag = 0;
@@ -209,6 +253,26 @@ void mudar_pos(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 		{
 			flag = 1;
 		}
+		if(flag)
+		{
+			conjunto_aux = conjunto;
+			flag = 0;
+			for (int i = 1; i < linha; ++i)
+			{
+				conjunto_aux = conjunto_aux->next;
+			}
+			for (int i = 0; i < 13; ++i)
+			{
+				if (conjunto_aux->carta[i].nbr == '0')
+				{
+					flag = 1;
+				}
+			}
+			if (!flag)
+			{
+				printf("Nao existem espacos livres na linha escolhida!!\n");
+			}
+		}
 	}
 	flag = 0;
 	conjunto_aux = conjunto;
@@ -230,6 +294,15 @@ void mudar_pos(t_tabuleiro_ptr conjunto, t_player* player, int numpl)
 		}else
 		{
 			printf("Coluna invalida!!\n");
+		}
+		for (int i = 1; i < linha; ++i)
+		{
+			conjunto_aux = conjunto_aux->next;
+		}
+		if (conjunto_aux->carta[n_coluna].nbr != '0')
+		{
+			flag = 0;
+			printf("Existe uma carta aqui!!\n");
 		}
 	}
 	flag = 0;
