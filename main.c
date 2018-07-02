@@ -130,6 +130,10 @@ int main()
 	    	{
                 resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl);
 	    		comprar_carta(player, baralho, &cartas_baralho, numpl);
+                if (!cartas_baralho)
+                {
+                    fim_jogo(player_nbr, player);
+                }
 	    	    finalizar = 1;
             }
             else if(opt == 0){
@@ -146,28 +150,19 @@ int main()
                     clear();
                     valida = 0;
                 }
-                if (opt == 0)
+                valida = checar(conjunto);
+                if (!valida)
                 {
-                    valida = checar(conjunto);
-                    if (!valida)
+                    resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl);
+                }else
+                {
+                    if(!player[numpl].cards)
                     {
-                        resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl);
-                    }else
-                    {
-                        player[numpl].numjogada++;
-                        finalizar = 1;
+                        fim_jogo(player_nbr, player);
                     }
+                    player[numpl].numjogada++;
+                    finalizar = 1;
                 }
-                else{
-                    int aux2 = seguintes-player[numpl].cards;
-                    if (aux2 >=  0)
-                    {
-                        resetar_jogada( conjunto_temp, conjunto, player , player_temp , numpl);
-                    }
-
-                }
-
-
             }		
         }
     	numpl = (numpl + 1)%player_nbr;
